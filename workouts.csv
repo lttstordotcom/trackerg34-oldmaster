@@ -1,0 +1,5 @@
+id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes
+1,2026-01-07,false,false,5000,600,60.00,1620.37,20,ss
+2,2026-01-15,true,false,7001,2761,197.19,45.65,0,
+3,2026-01-16,true,true,1,600,300000.00,0.00,1,slow
+4,2026-01-15,false,false,5000,170,17.00,71239.57,0,

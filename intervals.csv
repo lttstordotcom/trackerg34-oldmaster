@@ -1,0 +1,5 @@
+workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds
+2,1,4000,1200,120
+2,2,3000,1200,120
+2,3,1,61,60
+3,1,1,600,0

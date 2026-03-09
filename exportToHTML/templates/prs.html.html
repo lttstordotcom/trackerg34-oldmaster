@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>prs.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #56a8f5;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+prs.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">xmlns:th</span><span class="s3">=&quot;http://www.thymeleaf.org&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+  <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">/&gt;</span>
+  <span class="s0">&lt;meta </span><span class="s2">name</span><span class="s3">=&quot;viewport&quot; </span><span class="s2">content</span><span class="s3">=&quot;width=device-width, initial-scale=1&quot;</span><span class="s0">/&gt;</span>
+  <span class="s0">&lt;title&gt;</span><span class="s1">TrackErg - PRs</span><span class="s0">&lt;/title&gt;</span>
+  <span class="s0">&lt;style&gt;</span>
+    <span class="s1">:</span><span class="s0">root </span><span class="s1">{ </span><span class="s2">--border</span><span class="s1">:</span><span class="s4">#222</span><span class="s1">; </span><span class="s2">--soft</span><span class="s1">:</span><span class="s4">#f5f5f5</span><span class="s1">; }</span>
+    <span class="s0">body </span><span class="s1">{ </span><span class="s2">font-family</span><span class="s1">: </span><span class="s3">Arial</span><span class="s1">, </span><span class="s3">sans-serif</span><span class="s1">; </span><span class="s2">margin</span><span class="s1">:</span><span class="s5">0</span><span class="s1">; }</span>
+    <span class="s1">.</span><span class="s0">topbar </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">center</span><span class="s1">; </span><span class="s2">border-bottom</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); }</span>
+    <span class="s1">.</span><span class="s0">tabs </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; }</span>
+    <span class="s1">.</span><span class="s0">tab </span><span class="s1">{ </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px </span><span class="s5">14</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border-right</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">text-decoration</span><span class="s1">:</span><span class="s3">none</span><span class="s1">; </span><span class="s2">color</span><span class="s1">:</span><span class="s4">#000</span><span class="s1">; }</span>
+    <span class="s1">.</span><span class="s0">tab</span><span class="s1">.</span><span class="s0">active </span><span class="s1">{ </span><span class="s2">background</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--soft</span><span class="s1">); </span><span class="s2">font-weight</span><span class="s1">:</span><span class="s5">700</span><span class="s1">; }</span>
+    <span class="s1">.</span><span class="s0">content </span><span class="s1">{ </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">14</span><span class="s3">px</span><span class="s1">; }</span>
+    <span class="s0">table </span><span class="s1">{ </span><span class="s2">width</span><span class="s1">:</span><span class="s5">100</span><span class="s1">%; </span><span class="s2">border-collapse</span><span class="s1">:</span><span class="s3">collapse</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; }</span>
+    <span class="s0">th</span><span class="s1">, </span><span class="s0">td </span><span class="s1">{ </span><span class="s2">border</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">8</span><span class="s3">px</span><span class="s1">; </span><span class="s2">text-align</span><span class="s1">:</span><span class="s3">left</span><span class="s1">; }</span>
+    <span class="s0">th </span><span class="s1">{ </span><span class="s2">background</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--soft</span><span class="s1">); }</span>
+  <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;topbar&quot;</span><span class="s0">&gt;</span>
+  <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;tabs&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab&quot; </span><span class="s2">href</span><span class="s3">=&quot;/workouts&quot;</span><span class="s0">&gt;</span><span class="s1">View Workouts</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab&quot; </span><span class="s2">href</span><span class="s3">=&quot;/workouts/new&quot;</span><span class="s0">&gt;</span><span class="s1">Add Workout</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab active&quot; </span><span class="s2">href</span><span class="s3">=&quot;/prs&quot;</span><span class="s0">&gt;</span><span class="s1">View PR</span><span class="s0">&lt;/a&gt;</span>
+  <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;content&quot;</span><span class="s0">&gt;</span>
+  <span class="s0">&lt;h2&gt;</span><span class="s1">Best PRs (by watts)</span><span class="s0">&lt;/h2&gt;</span>
+  <span class="s0">&lt;table&gt;</span>
+    <span class="s0">&lt;thead&gt;</span>
+    <span class="s0">&lt;tr&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Category</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Date</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Distance</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Total time</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Split</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Watts</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Intervals</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">★</span><span class="s0">&lt;/th&gt;</span>
+      <span class="s0">&lt;th&gt;</span><span class="s1">Notes</span><span class="s0">&lt;/th&gt;</span>
+    <span class="s0">&lt;/tr&gt;</span>
+    <span class="s0">&lt;/thead&gt;</span>
+    <span class="s0">&lt;tbody&gt;</span>
+    <span class="s0">&lt;tr </span><span class="s2">th:each</span><span class="s3">=&quot;entry : ${best}&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.key}&quot;</span><span class="s0">&gt;</span><span class="s1">2k</span><span class="s0">&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.date}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.distanceMeters}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.timeSeconds &gt; 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.splitSeconds &gt; 0 ? #numbers.formatDecimal(entry.value.splitSeconds,0,1) : ''}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.watts &gt; 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.interval ? 'Yes' : 'No'}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.favorite ? '★' : ''}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+      <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${entry.value.notes}&quot;</span><span class="s0">&gt;&lt;/td&gt;</span>
+    <span class="s0">&lt;/tr&gt;</span>
+    <span class="s0">&lt;/tbody&gt;</span>
+  <span class="s0">&lt;/table&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

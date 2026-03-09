@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>workout_form.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #56a8f5;}
+.s5 { color: #2aacb8;}
+.s6 { color: #cf8e6d;}
+.s7 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+workout_form.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">xmlns:th</span><span class="s3">=&quot;http://www.thymeleaf.org&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">/&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">name</span><span class="s3">=&quot;viewport&quot; </span><span class="s2">content</span><span class="s3">=&quot;width=device-width, initial-scale=1&quot;</span><span class="s0">/&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">TrackErg - Add Workout</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;style&gt;</span>
+        <span class="s1">:</span><span class="s0">root </span><span class="s1">{ </span><span class="s2">--border</span><span class="s1">:</span><span class="s4">#222</span><span class="s1">; </span><span class="s2">--soft</span><span class="s1">:</span><span class="s4">#f5f5f5</span><span class="s1">; }</span>
+        <span class="s0">body </span><span class="s1">{ </span><span class="s2">font-family</span><span class="s1">: </span><span class="s3">Arial</span><span class="s1">, </span><span class="s3">sans-serif</span><span class="s1">; </span><span class="s2">margin</span><span class="s1">:</span><span class="s5">0</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">topbar </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">center</span><span class="s1">; </span><span class="s2">border-bottom</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); }</span>
+        <span class="s1">.</span><span class="s0">tabs </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">tab </span><span class="s1">{ </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px </span><span class="s5">14</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border-right</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">text-decoration</span><span class="s1">:</span><span class="s3">none</span><span class="s1">; </span><span class="s2">color</span><span class="s1">:</span><span class="s4">#000</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">tab</span><span class="s1">.</span><span class="s0">active </span><span class="s1">{ </span><span class="s2">background</span><span class="s1">: </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--soft</span><span class="s1">); </span><span class="s2">font-weight</span><span class="s1">:</span><span class="s5">700</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">wrap </span><span class="s1">{ </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">14</span><span class="s3">px</span><span class="s1">; </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">gap</span><span class="s1">:</span><span class="s5">16</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">left </span><span class="s1">{ </span><span class="s2">flex</span><span class="s1">: </span><span class="s5">1 1 420</span><span class="s3">px</span><span class="s1">; </span><span class="s2">max-width</span><span class="s1">: </span><span class="s5">520</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">right </span><span class="s1">{ </span><span class="s2">flex</span><span class="s1">: </span><span class="s5">1 1 300</span><span class="s3">px</span><span class="s1">; </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">justify-content</span><span class="s1">:</span><span class="s3">center</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">flex-start</span><span class="s1">; }</span>
+        <span class="s0">label </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">block</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s0">input</span><span class="s1">[</span><span class="s0">type</span><span class="s1">=</span><span class="s3">&quot;number&quot;</span><span class="s1">], </span><span class="s0">input</span><span class="s1">[</span><span class="s0">type</span><span class="s1">=</span><span class="s3">&quot;date&quot;</span><span class="s1">], </span><span class="s0">textarea </span><span class="s1">{ </span><span class="s2">width</span><span class="s1">:</span><span class="s5">100</span><span class="s1">%; </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">8</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); }</span>
+        <span class="s0">textarea </span><span class="s1">{ </span><span class="s2">min-height</span><span class="s1">: </span><span class="s5">160</span><span class="s3">px</span><span class="s1">; </span><span class="s2">resize</span><span class="s1">: </span><span class="s3">vertical</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">inline </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">gap</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">center</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">inline </span><span class="s1">.</span><span class="s0">small </span><span class="s1">{ </span><span class="s2">width</span><span class="s1">:</span><span class="s5">110</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">starBox </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">flex</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">center</span><span class="s1">; </span><span class="s2">gap</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">bigBtn </span><span class="s1">{ </span><span class="s2">border</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">14</span><span class="s3">px </span><span class="s5">22</span><span class="s3">px</span><span class="s1">; </span><span class="s2">font-size</span><span class="s1">: </span><span class="s5">22</span><span class="s3">px</span><span class="s1">; </span><span class="s2">background</span><span class="s1">:</span><span class="s4">#fff</span><span class="s1">; </span><span class="s2">cursor</span><span class="s1">:</span><span class="s3">pointer</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">smallBtn </span><span class="s1">{ </span><span class="s2">border</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">6</span><span class="s3">px </span><span class="s5">10</span><span class="s3">px</span><span class="s1">; </span><span class="s2">background</span><span class="s1">:</span><span class="s4">#fff</span><span class="s1">; </span><span class="s2">cursor</span><span class="s1">:</span><span class="s3">pointer</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">intervals </span><span class="s1">{ </span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border</span><span class="s1">:</span><span class="s5">2</span><span class="s3">px solid </span><span class="s0">var</span><span class="s1">(</span><span class="s0">--border</span><span class="s1">); </span><span class="s2">display</span><span class="s1">:</span><span class="s3">none</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">intervalRow </span><span class="s1">{ </span><span class="s2">display</span><span class="s1">:</span><span class="s3">grid</span><span class="s1">; </span><span class="s2">grid-template-columns</span><span class="s1">: </span><span class="s5">1</span><span class="s3">fr </span><span class="s5">1</span><span class="s3">fr </span><span class="s5">1</span><span class="s3">fr auto</span><span class="s1">; </span><span class="s2">gap</span><span class="s1">:</span><span class="s5">8</span><span class="s3">px</span><span class="s1">; </span><span class="s2">align-items</span><span class="s1">:</span><span class="s3">end</span><span class="s1">; </span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">8</span><span class="s3">px</span><span class="s1">; }</span>
+        <span class="s1">.</span><span class="s0">hint </span><span class="s1">{ </span><span class="s2">font-size</span><span class="s1">: </span><span class="s5">12</span><span class="s3">px</span><span class="s1">; </span><span class="s2">opacity</span><span class="s1">: </span><span class="s5">0.8</span><span class="s1">; }</span>
+        <span class="s6">@media </span><span class="s1">(</span><span class="s2">max-width</span><span class="s1">: </span><span class="s5">900</span><span class="s3">px</span><span class="s1">) {</span>
+            <span class="s1">.</span><span class="s0">wrap </span><span class="s1">{ </span><span class="s2">flex-direction</span><span class="s1">:</span><span class="s3">column</span><span class="s1">; }</span>
+            <span class="s1">.</span><span class="s0">right </span><span class="s1">{ </span><span class="s2">justify-content</span><span class="s1">:</span><span class="s3">flex-start</span><span class="s1">; }</span>
+        <span class="s1">}</span>
+    <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;topbar&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;tabs&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab&quot; </span><span class="s2">href</span><span class="s3">=&quot;/workouts&quot;</span><span class="s0">&gt;</span><span class="s1">View Workouts</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab active&quot; </span><span class="s2">href</span><span class="s3">=&quot;/workouts/new&quot;</span><span class="s0">&gt;</span><span class="s1">Add Workout</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">class</span><span class="s3">=&quot;tab&quot; </span><span class="s2">href</span><span class="s3">=&quot;/prs&quot;</span><span class="s0">&gt;</span><span class="s1">View PR</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;wrap&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;left&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;h2 </span><span class="s2">th:text</span><span class="s3">=&quot;${mode=='edit'} ? 'Edit Workout' : 'Add Workout'&quot;</span><span class="s0">&gt;</span><span class="s1">Add Workout</span><span class="s0">&lt;/h2&gt;</span>
+
+        <span class="s0">&lt;form </span><span class="s2">th:object</span><span class="s3">=&quot;${form}&quot;</span>
+              <span class="s2">th:action</span><span class="s3">=&quot;${mode=='edit'} ? @{/workouts/update} : @{/workouts}&quot;</span>
+              <span class="s2">method</span><span class="s3">=&quot;post&quot;</span><span class="s0">&gt;</span>
+
+            <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;hidden&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{id}&quot;</span><span class="s0">/&gt;</span>
+
+            <span class="s0">&lt;label&gt;</span><span class="s1">Date</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;date&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{date}&quot; </span><span class="s2">required</span><span class="s0">/&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;inline&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">10</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;label </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin</span><span class="s1">:</span><span class="s5">0</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Interval</span><span class="s0">&lt;/label&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{interval}&quot; </span><span class="s2">id</span><span class="s3">=&quot;intervalToggle&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;label&gt;</span><span class="s1">time to complete</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;inline&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">class</span><span class="s3">=&quot;small&quot; </span><span class="s2">type</span><span class="s3">=&quot;number&quot; </span><span class="s2">min</span><span class="s3">=&quot;0&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;min&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{timeMinutes}&quot; </span><span class="s0">/&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">class</span><span class="s3">=&quot;small&quot; </span><span class="s2">type</span><span class="s3">=&quot;number&quot; </span><span class="s2">min</span><span class="s3">=&quot;0&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;sec&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{timeSeconds}&quot; </span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;label&gt;</span><span class="s1">Distance</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;number&quot; </span><span class="s2">min</span><span class="s3">=&quot;0&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;meters&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{distanceMeters}&quot;</span><span class="s0">/&gt;</span>
+
+            <span class="s0">&lt;label&gt;</span><span class="s1">stroke rate</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;number&quot; </span><span class="s2">min</span><span class="s3">=&quot;0&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;spm&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{strokeRate}&quot;</span><span class="s0">/&gt;</span>
+
+            <span class="s0">&lt;label&gt;</span><span class="s1">notes</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;textarea </span><span class="s2">th:field</span><span class="s3">=&quot;*{notes}&quot;</span><span class="s0">&gt;&lt;/textarea&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;starBox&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">font-size</span><span class="s1">:</span><span class="s5">36</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">★</span><span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;label </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin</span><span class="s1">:</span><span class="s5">0</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Favorite</span><span class="s0">&lt;/label&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">th:field</span><span class="s3">=&quot;*{favorite}&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s7">&lt;!-- Interval section --&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;intervals&quot; </span><span class="s2">id</span><span class="s3">=&quot;intervalsBox&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;inline&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">justify-content</span><span class="s1">:</span><span class="s3">space-between</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;strong&gt;</span><span class="s1">Intervals</span><span class="s0">&lt;/strong&gt;</span>
+                    <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;smallBtn&quot; </span><span class="s2">type</span><span class="s3">=&quot;button&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">addIntervalRow()</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">+</span><span class="s0">&lt;/button&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;hint&quot;</span><span class="s0">&gt;</span><span class="s1">Fill either work distance OR work time. Rest is optional.</span><span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;intervalRows&quot;</span><span class="s0">&gt;&lt;/div&gt;</span>
+
+                <span class="s7">&lt;!-- Hidden template row index --&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;hidden&quot; </span><span class="s2">id</span><span class="s3">=&quot;intervalCount&quot; </span><span class="s2">value</span><span class="s3">=&quot;0&quot;</span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">margin-top</span><span class="s1">:</span><span class="s5">14</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;bigBtn&quot; </span><span class="s2">type</span><span class="s3">=&quot;submit&quot;</span><span class="s0">&gt;</span><span class="s1">Add Workout +</span><span class="s0">&lt;/button&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/form&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;right&quot;</span><span class="s0">&gt;</span>
+        <span class="s7">&lt;!-- empty space in your wireframe; leaving area here for future charts / PR preview --&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;script </span><span class="s2">th:inline</span><span class="s3">=&quot;javascript&quot;</span><span class="s0">&gt;</span>
+    <span class="s7">// If we're editing, we may receive intervalData from controller</span>
+    <span class="s6">const </span><span class="s1">intervalData = </span><span class="s7">/*[[${intervalData}]]*/ </span><span class="s6">null</span><span class="s1">;</span>
+
+    <span class="s6">function </span><span class="s1">showIntervals(show) {</span>
+        <span class="s6">const </span><span class="s1">box = document.getElementById(</span><span class="s3">'intervalsBox'</span><span class="s1">);</span>
+        <span class="s1">box.style.display = show ? </span><span class="s3">'block' </span><span class="s1">: </span><span class="s3">'none'</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s6">function </span><span class="s1">addIntervalRow(prefill) {</span>
+        <span class="s6">const </span><span class="s1">rows = document.getElementById(</span><span class="s3">'intervalRows'</span><span class="s1">);</span>
+        <span class="s6">const </span><span class="s1">countEl = document.getElementById(</span><span class="s3">'intervalCount'</span><span class="s1">);</span>
+        <span class="s6">let </span><span class="s1">idx = parseInt(countEl.value, </span><span class="s5">10</span><span class="s1">);</span>
+
+        <span class="s6">const </span><span class="s1">row = document.createElement(</span><span class="s3">'div'</span><span class="s1">);</span>
+        <span class="s1">row.className = </span><span class="s3">'intervalRow'</span><span class="s1">;</span>
+        <span class="s1">row.dataset.idx = idx;</span>
+
+        <span class="s1">row.innerHTML = </span><span class="s3">`</span>
+      <span class="s3">&lt;div&gt; 
+        &lt;label&gt;Work distance (m)&lt;/label&gt; 
+        &lt;input type=&quot;number&quot; min=&quot;0&quot; name=&quot;intervals[</span><span class="s1">${idx}</span><span class="s3">].workDistanceMeters&quot; placeholder=&quot;e.g., 500&quot; 
+               value=&quot;</span><span class="s1">${prefill?.workDistanceMeters ?? </span><span class="s3">''</span><span class="s1">}</span><span class="s3">&quot;&gt; 
+      &lt;/div&gt; 
+ 
+      &lt;div&gt; 
+        &lt;label&gt;Work time (min:sec)&lt;/label&gt; 
+        &lt;div class=&quot;inline&quot;&gt; 
+          &lt;input class=&quot;small&quot; type=&quot;number&quot; min=&quot;0&quot; name=&quot;intervals[</span><span class="s1">${idx}</span><span class="s3">].workMinutes&quot; placeholder=&quot;min&quot; 
+                 value=&quot;</span><span class="s1">${prefill ? Math.floor((prefill.workTimeSeconds||</span><span class="s5">0</span><span class="s1">)/</span><span class="s5">60</span><span class="s1">) : </span><span class="s3">''</span><span class="s1">}</span><span class="s3">&quot;&gt; 
+          &lt;input class=&quot;small&quot; type=&quot;number&quot; min=&quot;0&quot; name=&quot;intervals[</span><span class="s1">${idx}</span><span class="s3">].workSeconds&quot; placeholder=&quot;sec&quot; 
+                 value=&quot;</span><span class="s1">${prefill ? ((prefill.workTimeSeconds||</span><span class="s5">0</span><span class="s1">)%</span><span class="s5">60</span><span class="s1">) : </span><span class="s3">''</span><span class="s1">}</span><span class="s3">&quot;&gt; 
+        &lt;/div&gt; 
+      &lt;/div&gt; 
+ 
+      &lt;div&gt; 
+        &lt;label&gt;Rest (min:sec)&lt;/label&gt; 
+        &lt;div class=&quot;inline&quot;&gt; 
+          &lt;input class=&quot;small&quot; type=&quot;number&quot; min=&quot;0&quot; name=&quot;intervals[</span><span class="s1">${idx}</span><span class="s3">].restMinutes&quot; placeholder=&quot;min&quot; 
+                 value=&quot;</span><span class="s1">${prefill ? Math.floor((prefill.restTimeSeconds||</span><span class="s5">0</span><span class="s1">)/</span><span class="s5">60</span><span class="s1">) : </span><span class="s3">''</span><span class="s1">}</span><span class="s3">&quot;&gt; 
+          &lt;input class=&quot;small&quot; type=&quot;number&quot; min=&quot;0&quot; name=&quot;intervals[</span><span class="s1">${idx}</span><span class="s3">].restSeconds&quot; placeholder=&quot;sec&quot; 
+                 value=&quot;</span><span class="s1">${prefill ? ((prefill.restTimeSeconds||</span><span class="s5">0</span><span class="s1">)%</span><span class="s5">60</span><span class="s1">) : </span><span class="s3">''</span><span class="s1">}</span><span class="s3">&quot;&gt; 
+        &lt;/div&gt; 
+      &lt;/div&gt; 
+ 
+      &lt;div&gt; 
+        &lt;button class=&quot;smallBtn&quot; type=&quot;button&quot; onclick=&quot;removeRow(</span><span class="s1">${idx}</span><span class="s3">)&quot;&gt;X&lt;/button&gt; 
+      &lt;/div&gt; 
+    `</span><span class="s1">;</span>
+
+        <span class="s1">rows.appendChild(row);</span>
+        <span class="s1">idx++;</span>
+        <span class="s1">countEl.value = idx;</span>
+    <span class="s1">}</span>
+
+    <span class="s6">function </span><span class="s1">removeRow(idx) {</span>
+        <span class="s6">const </span><span class="s1">rows = document.getElementById(</span><span class="s3">'intervalRows'</span><span class="s1">);</span>
+        <span class="s6">const </span><span class="s1">node = rows.querySelector(</span><span class="s3">`[data-idx=&quot;</span><span class="s1">${idx}</span><span class="s3">&quot;]`</span><span class="s1">);</span>
+        <span class="s6">if </span><span class="s1">(node) node.remove();</span>
+    <span class="s1">}</span>
+
+    <span class="s7">// Toggle logic</span>
+    <span class="s6">const </span><span class="s1">toggle = document.getElementById(</span><span class="s3">'intervalToggle'</span><span class="s1">);</span>
+    <span class="s1">toggle.addEventListener(</span><span class="s3">'change'</span><span class="s1">, () =&gt; {</span>
+        <span class="s1">showIntervals(toggle.checked);</span>
+        <span class="s6">if </span><span class="s1">(toggle.checked &amp;&amp; document.getElementById(</span><span class="s3">'intervalCount'</span><span class="s1">).value === </span><span class="s3">&quot;0&quot;</span><span class="s1">) {</span>
+            <span class="s1">addIntervalRow();</span>
+        <span class="s1">}</span>
+    <span class="s1">});</span>
+
+    <span class="s7">// On page load: set interval box if checked OR editing with interval data</span>
+    <span class="s1">window.addEventListener(</span><span class="s3">'load'</span><span class="s1">, () =&gt; {</span>
+        <span class="s1">showIntervals(toggle.checked);</span>
+
+        <span class="s7">// If editing and we have interval data, render rows</span>
+        <span class="s6">if </span><span class="s1">(intervalData &amp;&amp; Array.isArray(intervalData) &amp;&amp; intervalData.length &gt; </span><span class="s5">0</span><span class="s1">) {</span>
+            <span class="s1">toggle.checked = </span><span class="s6">true</span><span class="s1">;</span>
+            <span class="s1">showIntervals(</span><span class="s6">true</span><span class="s1">);</span>
+            <span class="s1">intervalData.forEach(it =&gt; addIntervalRow(it));</span>
+        <span class="s1">} </span><span class="s6">else if </span><span class="s1">(toggle.checked) {</span>
+            <span class="s1">addIntervalRow();</span>
+        <span class="s1">}</span>
+    <span class="s1">});</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

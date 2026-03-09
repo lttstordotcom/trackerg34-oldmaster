@@ -1,0 +1,157 @@
+<html>
+<head>
+<title>WorkoutFileRepository.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+WorkoutFileRepository.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">repository</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Interval</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Workout</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">nio</span><span class="s2">.</span><span class="s1">file</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.*;</span>
+
+<span class="s0">public class </span><span class="s1">WorkoutFileRepository </span><span class="s2">{</span>
+
+    <span class="s0">private static final </span><span class="s1">String WORKOUTS_FILE </span><span class="s2">= </span><span class="s3">&quot;workouts.csv&quot;</span><span class="s2">;</span>
+    <span class="s0">private static final </span><span class="s1">String INTERVALS_FILE </span><span class="s2">= </span><span class="s3">&quot;intervals.csv&quot;</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">WorkoutFileRepository</span><span class="s2">() {</span>
+        <span class="s1">ensureFilesExist</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">ensureFilesExist</span><span class="s2">() {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">Files</span><span class="s2">.</span><span class="s1">exists</span><span class="s2">(</span><span class="s1">Path</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">WORKOUTS_FILE</span><span class="s2">))) {</span>
+                <span class="s1">Files</span><span class="s2">.</span><span class="s1">writeString</span><span class="s2">(</span><span class="s1">Path</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">WORKOUTS_FILE</span><span class="s2">),</span>
+                        <span class="s3">&quot;id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s0">if </span><span class="s2">(!</span><span class="s1">Files</span><span class="s2">.</span><span class="s1">exists</span><span class="s2">(</span><span class="s1">Path</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">INTERVALS_FILE</span><span class="s2">))) {</span>
+                <span class="s1">Files</span><span class="s2">.</span><span class="s1">writeString</span><span class="s2">(</span><span class="s1">Path</span><span class="s2">.</span><span class="s1">of</span><span class="s2">(</span><span class="s1">INTERVALS_FILE</span><span class="s2">),</span>
+                        <span class="s3">&quot;workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s3">&quot;Failed to create data files&quot;</span><span class="s2">, </span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">loadWorkouts</span><span class="s2">() {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">list </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">BufferedReader br </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">FileReader</span><span class="s2">(</span><span class="s1">WORKOUTS_FILE</span><span class="s2">))) {</span>
+            <span class="s1">String line </span><span class="s2">= </span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">(); </span><span class="s4">// header</span>
+            <span class="s0">while </span><span class="s2">((</span><span class="s1">line </span><span class="s2">= </span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">()) != </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">String</span><span class="s2">[] </span><span class="s1">p </span><span class="s2">= </span><span class="s1">line</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s3">&quot;,&quot;</span><span class="s2">, -</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Workout w </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Workout</span><span class="s2">();</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setId</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">0</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">parse</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">1</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setInterval</span><span class="s2">(</span><span class="s1">Boolean</span><span class="s2">.</span><span class="s1">parseBoolean</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">2</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setFavorite</span><span class="s2">(</span><span class="s1">Boolean</span><span class="s2">.</span><span class="s1">parseBoolean</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">3</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">4</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">5</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setSplitSeconds</span><span class="s2">(</span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">6</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setWatts</span><span class="s2">(</span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">7</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setStrokeRate</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">8</span><span class="s2">]));</span>
+                <span class="s1">w</span><span class="s2">.</span><span class="s1">setNotes</span><span class="s2">(</span><span class="s1">unescape</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">9</span><span class="s2">]));</span>
+                <span class="s1">list</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">FileNotFoundException e</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s1">list</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s3">&quot;Failed reading workouts.csv&quot;</span><span class="s2">, </span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">list</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveWorkouts</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">workouts</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">PrintWriter pw </span><span class="s2">= </span><span class="s0">new </span><span class="s1">PrintWriter</span><span class="s2">(</span><span class="s0">new </span><span class="s1">FileWriter</span><span class="s2">(</span><span class="s1">WORKOUTS_FILE</span><span class="s2">))) {</span>
+            <span class="s1">pw</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes&quot;</span><span class="s2">);</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Workout w </span><span class="s2">: </span><span class="s1">workouts</span><span class="s2">) {</span>
+                <span class="s1">pw</span><span class="s2">.</span><span class="s1">printf</span><span class="s2">(</span>
+                        <span class="s3">&quot;%d,%s,%b,%b,%d,%d,%.2f,%.2f,%d,%s%n&quot;</span><span class="s2">,</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">isFavorite</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getSplitSeconds</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getWatts</span><span class="s2">(),</span>
+                        <span class="s1">w</span><span class="s2">.</span><span class="s1">getStrokeRate</span><span class="s2">(),</span>
+                        <span class="s1">escape</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">())</span>
+                <span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s3">&quot;Failed writing workouts.csv&quot;</span><span class="s2">, </span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">loadIntervals</span><span class="s2">() {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">list </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">BufferedReader br </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">FileReader</span><span class="s2">(</span><span class="s1">INTERVALS_FILE</span><span class="s2">))) {</span>
+            <span class="s1">String line </span><span class="s2">= </span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">(); </span><span class="s4">// header</span>
+            <span class="s0">while </span><span class="s2">((</span><span class="s1">line </span><span class="s2">= </span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">()) != </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">String</span><span class="s2">[] </span><span class="s1">p </span><span class="s2">= </span><span class="s1">line</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s3">&quot;,&quot;</span><span class="s2">, -</span><span class="s5">1</span><span class="s2">);</span>
+                <span class="s1">Interval it </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Interval</span><span class="s2">();</span>
+                <span class="s1">it</span><span class="s2">.</span><span class="s1">setWorkoutId</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">0</span><span class="s2">]));</span>
+                <span class="s1">it</span><span class="s2">.</span><span class="s1">setIndex</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">1</span><span class="s2">]));</span>
+                <span class="s1">it</span><span class="s2">.</span><span class="s1">setWorkDistanceMeters</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">2</span><span class="s2">]));</span>
+                <span class="s1">it</span><span class="s2">.</span><span class="s1">setWorkTimeSeconds</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">3</span><span class="s2">]));</span>
+                <span class="s1">it</span><span class="s2">.</span><span class="s1">setRestTimeSeconds</span><span class="s2">(</span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">p</span><span class="s2">[</span><span class="s5">4</span><span class="s2">]));</span>
+                <span class="s1">list</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">it</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">FileNotFoundException e</span><span class="s2">) {</span>
+            <span class="s0">return </span><span class="s1">list</span><span class="s2">;</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s3">&quot;Failed reading intervals.csv&quot;</span><span class="s2">, </span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">list</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">saveIntervals</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">intervals</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">(</span><span class="s1">PrintWriter pw </span><span class="s2">= </span><span class="s0">new </span><span class="s1">PrintWriter</span><span class="s2">(</span><span class="s0">new </span><span class="s1">FileWriter</span><span class="s2">(</span><span class="s1">INTERVALS_FILE</span><span class="s2">))) {</span>
+            <span class="s1">pw</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds&quot;</span><span class="s2">);</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Interval it </span><span class="s2">: </span><span class="s1">intervals</span><span class="s2">) {</span>
+                <span class="s1">pw</span><span class="s2">.</span><span class="s1">printf</span><span class="s2">(</span>
+                        <span class="s3">&quot;%d,%d,%d,%d,%d%n&quot;</span><span class="s2">,</span>
+                        <span class="s1">it</span><span class="s2">.</span><span class="s1">getWorkoutId</span><span class="s2">(),</span>
+                        <span class="s1">it</span><span class="s2">.</span><span class="s1">getIndex</span><span class="s2">(),</span>
+                        <span class="s1">it</span><span class="s2">.</span><span class="s1">getWorkDistanceMeters</span><span class="s2">(),</span>
+                        <span class="s1">it</span><span class="s2">.</span><span class="s1">getWorkTimeSeconds</span><span class="s2">(),</span>
+                        <span class="s1">it</span><span class="s2">.</span><span class="s1">getRestTimeSeconds</span><span class="s2">()</span>
+                <span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException</span><span class="s2">(</span><span class="s3">&quot;Failed writing intervals.csv&quot;</span><span class="s2">, </span><span class="s1">e</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">String escape</span><span class="s2">(</span><span class="s1">String s</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">s </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">return </span><span class="s3">&quot;&quot;</span><span class="s2">;</span>
+        <span class="s4">// Replace commas so CSV stays safe</span>
+        <span class="s0">return </span><span class="s1">s</span><span class="s2">.</span><span class="s1">replace</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">, </span><span class="s3">&quot;</span><span class="s0">\\</span><span class="s3">n&quot;</span><span class="s2">).</span><span class="s1">replace</span><span class="s2">(</span><span class="s3">&quot;,&quot;</span><span class="s2">, </span><span class="s3">&quot;;&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">String unescape</span><span class="s2">(</span><span class="s1">String s</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">s </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">return </span><span class="s3">&quot;&quot;</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">s</span><span class="s2">.</span><span class="s1">replace</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\\</span><span class="s3">n&quot;</span><span class="s2">, </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">).</span><span class="s1">replace</span><span class="s2">(</span><span class="s3">&quot;;&quot;</span><span class="s2">, </span><span class="s3">&quot;,&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
