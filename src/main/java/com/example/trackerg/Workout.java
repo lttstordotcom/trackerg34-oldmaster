@@ -101,4 +101,10 @@ public class Workout {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+	public String getFormattedSplit() {
+    	if (splitSeconds <= 0) return "";
+    	int minutes = (int) (splitSeconds / 60);
+   		double seconds = splitSeconds % 60;
+   	 	return String.format("%d:%04.1f", minutes, seconds);
+}
 }
