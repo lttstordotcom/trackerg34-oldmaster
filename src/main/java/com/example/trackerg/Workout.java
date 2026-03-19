@@ -18,36 +18,87 @@ public class Workout {
     private int strokeRate;
     private String notes;
 
-    public Workout() {}
+    public Workout() {
+    }
 
     // gets and sets
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public boolean isInterval() { return interval; }
-    public void setInterval(boolean interval) { this.interval = interval; }
+    public LocalDate getDate() {
+        return date;
+    }
 
-    public boolean isFavorite() { return favorite; }
-    public void setFavorite(boolean favorite) { this.favorite = favorite; }
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-    public int getDistanceMeters() { return distanceMeters; }
-    public void setDistanceMeters(int distanceMeters) { this.distanceMeters = distanceMeters; }
+    public boolean isInterval() {
+        return interval;
+    }
 
-    public int getTimeSeconds() { return timeSeconds; }
-    public void setTimeSeconds(int timeSeconds) { this.timeSeconds = timeSeconds; }
+    public void setInterval(boolean interval) {
+        this.interval = interval;
+    }
 
-    public double getSplitSeconds() { return splitSeconds; }
-    public void setSplitSeconds(double splitSeconds) { this.splitSeconds = splitSeconds; }
+    public boolean isFavorite() {
+        return favorite;
+    }
 
-    public double getWatts() { return watts; }
-    public void setWatts(double watts) { this.watts = watts; }
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 
-    public int getStrokeRate() { return strokeRate; }
-    public void setStrokeRate(int strokeRate) { this.strokeRate = strokeRate; }
+    public int getDistanceMeters() {
+        return distanceMeters;
+    }
 
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
+    public void setDistanceMeters(int distanceMeters) {
+        this.distanceMeters = distanceMeters;
+    }
+
+    public int getTimeSeconds() {
+        return timeSeconds;
+    }
+
+    public void setTimeSeconds(int timeSeconds) {
+        this.timeSeconds = timeSeconds;
+    }
+
+    public double getSplitSeconds() {
+        return splitSeconds;
+    }
+
+    public void setSplitSeconds(double splitSeconds) {
+        this.splitSeconds = splitSeconds;
+    }
+
+    public double getWatts() {
+        return watts;
+    }
+
+    public void setWatts(double watts) {
+        this.watts = watts;
+    }
+
+    public int getStrokeRate() {
+        return strokeRate;
+    }
+
+    public void setStrokeRate(int strokeRate) {
+        this.strokeRate = strokeRate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

@@ -1,122 +1,227 @@
 <html>
 <head>
-<title>WorkoutController.java</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.s0 { color: #cf8e6d;}
-.s1 { color: #bcbec4;}
-.s2 { color: #bcbec4;}
-.s3 { color: #6aab73;}
-.s4 { color: #7a7e85;}
-.s5 { color: #2aacb8;}
-</style>
+    <title>WorkoutController.java</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style type="text/css">
+        .s0 { color: #cf8e6d;}
+        .s1 { color: #bcbec4;}
+        .s2 { color: #bcbec4;}
+        .s3 { color: #6aab73;}
+        .s4 { color: #7a7e85;}
+        .s5 { color: #2aacb8;}
+    </style>
 </head>
 <body bgcolor="#191a1c">
-<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
-<tr><td><center>
-<font face="Arial, Helvetica" color="#000000">
-WorkoutController.java</font>
-</center></td></tr></table>
-<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">controller</span><span class="s2">;</span>
+<table BGCOLOR="#606060" CELLPADDING=5 CELLSPACING=0 COLS=1 WIDTH="100%">
+    <tr>
+        <td>
+            <center>
+                <font color="#000000" face="Arial, Helvetica">
+                    WorkoutController.java</font>
+            </center>
+        </td>
+    </tr>
+</table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+        class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+        class="s1">controller</span><span class="s2">;</span>
 
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">WorkoutForm</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Interval</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Workout</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">service</span><span class="s2">.</span><span class="s1">WorkoutService</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span class="s2">.</span><span class="s1">Controller</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">ui</span><span class="s2">.</span><span class="s1">Model</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span
+            class="s2">.</span><span class="s1">WorkoutForm</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">model</span><span class="s2">.</span><span class="s1">Interval</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">model</span><span class="s2">.</span><span class="s1">Workout</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">service</span><span class="s2">.</span><span class="s1">WorkoutService</span><span
+            class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span
+            class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span
+            class="s2">.</span><span class="s1">Controller</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span
+            class="s1">springframework</span><span class="s2">.</span><span class="s1">ui</span><span
+            class="s2">.</span><span class="s1">Model</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span
+            class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span
+            class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span
+            class="s1">annotation</span><span class="s2">.*;</span>
 
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Map</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.</span><span class="s1">Map</span><span class="s2">;</span>
 
 <span class="s1">@Controller</span>
 <span class="s0">public class </span><span class="s1">WorkoutController </span><span class="s2">{</span>
 
     <span class="s0">private final </span><span class="s1">WorkoutService service</span><span class="s2">;</span>
 
-    <span class="s0">public </span><span class="s1">WorkoutController</span><span class="s2">(</span><span class="s1">WorkoutService service</span><span class="s2">) {</span>
-        <span class="s0">this</span><span class="s2">.</span><span class="s1">service </span><span class="s2">= </span><span class="s1">service</span><span class="s2">;</span>
+    <span class="s0">public </span><span class="s1">WorkoutController</span><span class="s2">(</span><span class="s1">WorkoutService service</span><span
+            class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">service </span><span
+            class="s2">= </span><span class="s1">service</span><span class="s2">;</span>
     <span class="s2">}</span>
 
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/&quot;</span><span class="s2">)</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/&quot;</span><span
+            class="s2">)</span>
     <span class="s0">public </span><span class="s1">String home</span><span class="s2">() {</span>
         <span class="s0">return </span><span class="s3">&quot;redirect:/workouts&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s4">//View Workouts</span>
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts&quot;</span><span class="s2">)</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts&quot;</span><span
+            class="s2">)</span>
     <span class="s0">public </span><span class="s1">String workouts</span><span class="s2">(</span>
-            <span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">value </span><span class="s2">= </span><span class="s3">&quot;query&quot;</span><span class="s2">, </span><span class="s1">required </span><span class="s2">= </span><span class="s0">false</span><span class="s2">) </span><span class="s1">String query</span><span class="s2">,</span>
-            <span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">value </span><span class="s2">= </span><span class="s3">&quot;sort&quot;</span><span class="s2">, </span><span class="s1">required </span><span class="s2">= </span><span class="s0">false</span><span class="s2">) </span><span class="s1">String sort</span><span class="s2">,</span>
+            <span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">value </span><span
+            class="s2">= </span><span class="s3">&quot;query&quot;</span><span class="s2">, </span><span class="s1">required </span><span
+            class="s2">= </span><span class="s0">false</span><span class="s2">) </span><span
+            class="s1">String query</span><span class="s2">,</span>
+            <span class="s1">@RequestParam</span><span class="s2">(</span><span class="s1">value </span><span
+            class="s2">= </span><span class="s3">&quot;sort&quot;</span><span class="s2">, </span><span class="s1">required </span><span
+            class="s2">= </span><span class="s0">false</span><span class="s2">) </span><span
+            class="s1">String sort</span><span class="s2">,</span>
             <span class="s1">Model model</span>
     <span class="s2">) {</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;workouts&quot;</span><span class="s2">, </span><span class="s1">service</span><span class="s2">.</span><span class="s1">listWorkouts</span><span class="s2">(</span><span class="s1">query</span><span class="s2">, </span><span class="s1">sort</span><span class="s2">));</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;query&quot;</span><span class="s2">, </span><span class="s1">query </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s3">&quot;&quot; </span><span class="s2">: </span><span class="s1">query</span><span class="s2">);</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;sort&quot;</span><span class="s2">, </span><span class="s1">sort </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s3">&quot;&quot; </span><span class="s2">: </span><span class="s1">sort</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;workouts&quot;</span><span class="s2">, </span><span class="s1">service</span><span
+            class="s2">.</span><span class="s1">listWorkouts</span><span class="s2">(</span><span
+            class="s1">query</span><span class="s2">, </span><span class="s1">sort</span><span class="s2">));</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;query&quot;</span><span class="s2">, </span><span
+            class="s1">query </span><span class="s2">== </span><span class="s0">null </span><span
+            class="s2">? </span><span class="s3">&quot;&quot; </span><span class="s2">: </span><span
+            class="s1">query</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;sort&quot;</span><span class="s2">, </span><span
+            class="s1">sort </span><span class="s2">== </span><span class="s0">null </span><span
+            class="s2">? </span><span class="s3">&quot;&quot; </span><span class="s2">: </span><span
+            class="s1">sort</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;workouts&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s4">//Add Workout</span>
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts/new&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String newWorkout</span><span class="s2">(</span><span class="s1">Model model</span><span class="s2">) {</span>
-        <span class="s1">WorkoutForm form </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutForm</span><span class="s2">();</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts/new&quot;</span><span
+            class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String newWorkout</span><span class="s2">(</span><span class="s1">Model model</span><span
+            class="s2">) {</span>
+        <span class="s1">WorkoutForm form </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutForm</span><span
+            class="s2">();</span>
         <span class="s4">// Start with 1 interval row so the UI has something to show when toggled</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">, </span><span class="s1">form</span><span class="s2">);</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;mode&quot;</span><span class="s2">, </span><span class="s3">&quot;create&quot;</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">, </span><span
+            class="s1">form</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;mode&quot;</span><span class="s2">, </span><span class="s3">&quot;create&quot;</span><span
+            class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;workout_form&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
-    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String create</span><span class="s2">(</span><span class="s1">@ModelAttribute</span><span class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">) </span><span class="s1">WorkoutForm form</span><span class="s2">) {</span>
-        <span class="s1">service</span><span class="s2">.</span><span class="s1">createFromForm</span><span class="s2">(</span><span class="s1">form</span><span class="s2">);</span>
+    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts&quot;</span><span
+            class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String create</span><span class="s2">(</span><span class="s1">@ModelAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">) </span><span class="s1">WorkoutForm form</span><span
+            class="s2">) {</span>
+        <span class="s1">service</span><span class="s2">.</span><span class="s1">createFromForm</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;redirect:/workouts&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s4">//Edit Workout</span>
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts/edit/{id}&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String edit</span><span class="s2">(</span><span class="s1">@PathVariable </span><span class="s0">int </span><span class="s1">id</span><span class="s2">, </span><span class="s1">Model model</span><span class="s2">) {</span>
-        <span class="s1">Workout w </span><span class="s2">= </span><span class="s1">service</span><span class="s2">.</span><span class="s1">getWorkout</span><span class="s2">(</span><span class="s1">id</span><span class="s2">);</span>
-        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">intervalRows </span><span class="s2">= </span><span class="s1">service</span><span class="s2">.</span><span class="s1">getIntervalsForWorkout</span><span class="s2">(</span><span class="s1">id</span><span class="s2">);</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span
+            class="s3">&quot;/workouts/edit/{id}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String edit</span><span class="s2">(</span><span class="s1">@PathVariable </span><span
+            class="s0">int </span><span class="s1">id</span><span class="s2">, </span><span
+            class="s1">Model model</span><span class="s2">) {</span>
+        <span class="s1">Workout w </span><span class="s2">= </span><span class="s1">service</span><span
+            class="s2">.</span><span class="s1">getWorkout</span><span class="s2">(</span><span
+            class="s1">id</span><span class="s2">);</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span
+            class="s2">&gt; </span><span class="s1">intervalRows </span><span class="s2">= </span><span class="s1">service</span><span
+            class="s2">.</span><span class="s1">getIntervalsForWorkout</span><span class="s2">(</span><span class="s1">id</span><span
+            class="s2">);</span>
 
-        <span class="s1">WorkoutForm form </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutForm</span><span class="s2">();</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setId</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setInterval</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setFavorite</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">isFavorite</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setStrokeRate</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getStrokeRate</span><span class="s2">());</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setNotes</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">());</span>
+        <span class="s1">WorkoutForm form </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutForm</span><span
+            class="s2">();</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setId</span><span class="s2">(</span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setDate</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span
+            class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setInterval</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">isInterval</span><span
+            class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setFavorite</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">isFavorite</span><span
+            class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setStrokeRate</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getStrokeRate</span><span class="s2">());</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setNotes</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span
+            class="s2">());</span>
 
         <span class="s4">// Convert total time into minutes + seconds</span>
-        <span class="s0">int </span><span class="s1">total </span><span class="s2">= </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">();</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setTimeMinutes</span><span class="s2">(</span><span class="s1">total </span><span class="s2">/ </span><span class="s5">60</span><span class="s2">);</span>
-        <span class="s1">form</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">total </span><span class="s2">% </span><span class="s5">60</span><span class="s2">);</span>
+        <span class="s0">int </span><span class="s1">total </span><span class="s2">= </span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span
+            class="s2">();</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setTimeMinutes</span><span
+            class="s2">(</span><span class="s1">total </span><span class="s2">/ </span><span class="s5">60</span><span
+            class="s2">);</span>
+        <span class="s1">form</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span
+            class="s2">(</span><span class="s1">total </span><span class="s2">% </span><span class="s5">60</span><span
+            class="s2">);</span>
 
         <span class="s4">// If interval workout show existing interval rows (ELIOT REMEMBER THIS IS JS IF YOU MESS WITH IT GOOGLE STUFF FIRST BECAUSE YOU HAVE NO IDEA HOW TO RIGHT JS)</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;intervalData&quot;</span><span class="s2">, </span><span class="s1">intervalRows</span><span class="s2">);</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">, </span><span class="s1">form</span><span class="s2">);</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;mode&quot;</span><span class="s2">, </span><span class="s3">&quot;edit&quot;</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;intervalData&quot;</span><span class="s2">, </span><span
+            class="s1">intervalRows</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">, </span><span
+            class="s1">form</span><span class="s2">);</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;mode&quot;</span><span class="s2">, </span><span class="s3">&quot;edit&quot;</span><span
+            class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;workout_form&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
-    <span class="s1">@PostMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts/update&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String update</span><span class="s2">(</span><span class="s1">@ModelAttribute</span><span class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">) </span><span class="s1">WorkoutForm form</span><span class="s2">) {</span>
-        <span class="s1">service</span><span class="s2">.</span><span class="s1">updateFromForm</span><span class="s2">(</span><span class="s1">form</span><span class="s2">);</span>
+    <span class="s1">@PostMapping</span><span class="s2">(</span><span
+            class="s3">&quot;/workouts/update&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String update</span><span class="s2">(</span><span class="s1">@ModelAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;form&quot;</span><span class="s2">) </span><span class="s1">WorkoutForm form</span><span
+            class="s2">) {</span>
+        <span class="s1">service</span><span class="s2">.</span><span class="s1">updateFromForm</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;redirect:/workouts&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/workouts/delete/{id}&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String delete</span><span class="s2">(</span><span class="s1">@PathVariable </span><span class="s0">int </span><span class="s1">id</span><span class="s2">) {</span>
-        <span class="s1">service</span><span class="s2">.</span><span class="s1">deleteWorkout</span><span class="s2">(</span><span class="s1">id</span><span class="s2">);</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span
+            class="s3">&quot;/workouts/delete/{id}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String delete</span><span class="s2">(</span><span class="s1">@PathVariable </span><span
+            class="s0">int </span><span class="s1">id</span><span class="s2">) {</span>
+        <span class="s1">service</span><span class="s2">.</span><span class="s1">deleteWorkout</span><span
+            class="s2">(</span><span class="s1">id</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;redirect:/workouts&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s4">//View PR</span>
-    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/prs&quot;</span><span class="s2">)</span>
-    <span class="s0">public </span><span class="s1">String prs</span><span class="s2">(</span><span class="s1">Model model</span><span class="s2">) {</span>
-        <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">best </span><span class="s2">= </span><span class="s1">service</span><span class="s2">.</span><span class="s1">bestPRs</span><span class="s2">();</span>
-        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span class="s2">(</span><span class="s3">&quot;best&quot;</span><span class="s2">, </span><span class="s1">best</span><span class="s2">);</span>
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/prs&quot;</span><span
+            class="s2">)</span>
+    <span class="s0">public </span><span class="s1">String prs</span><span class="s2">(</span><span class="s1">Model model</span><span
+            class="s2">) {</span>
+        <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span
+            class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span
+            class="s1">best </span><span class="s2">= </span><span class="s1">service</span><span
+            class="s2">.</span><span class="s1">bestPRs</span><span class="s2">();</span>
+        <span class="s1">model</span><span class="s2">.</span><span class="s1">addAttribute</span><span
+            class="s2">(</span><span class="s3">&quot;best&quot;</span><span class="s2">, </span><span
+            class="s1">best</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s3">&quot;prs&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
 <span class="s2">}</span>

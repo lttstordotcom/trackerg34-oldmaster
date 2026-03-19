@@ -8,7 +8,8 @@ public class Interval {
     private int workTimeSeconds;    // 0 if distance-based
     private int restTimeSeconds;    // rest after this interval
 
-    public Interval() {}
+    public Interval() {
+    }
 
     public Interval(int workoutId, int index, int workDistanceMeters, int workTimeSeconds, int restTimeSeconds) {
         this.workoutId = workoutId;
@@ -18,18 +19,43 @@ public class Interval {
         this.restTimeSeconds = restTimeSeconds;
     }
 
-    public int getWorkoutId() { return workoutId; }
-    public void setWorkoutId(int workoutId) { this.workoutId = workoutId; }
+    public int getWorkoutId() {
+        return workoutId;
+    }
 
-    public int getIndex() { return index; }
-    public void setIndex(int index) { this.index = index; }
+    public void setWorkoutId(int workoutId) {
+        this.workoutId = workoutId;
+    }
 
-    public int getWorkDistanceMeters() { return workDistanceMeters; }
-    public void setWorkDistanceMeters(int workDistanceMeters) { this.workDistanceMeters = workDistanceMeters; }
+    public int getIndex() {
+        return index;
+    }
 
-    public int getWorkTimeSeconds() { return workTimeSeconds; }
-    public void setWorkTimeSeconds(int workTimeSeconds) { this.workTimeSeconds = workTimeSeconds; }
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
-    public int getRestTimeSeconds() { return restTimeSeconds; }
-    public void setRestTimeSeconds(int restTimeSeconds) { this.restTimeSeconds = restTimeSeconds; }
+    public int getWorkDistanceMeters() {
+        return workDistanceMeters;
+    }
+
+    public void setWorkDistanceMeters(int workDistanceMeters) {
+        this.workDistanceMeters = workDistanceMeters;
+    }
+
+    public int getWorkTimeSeconds() {
+        return workTimeSeconds;
+    }
+
+    public void setWorkTimeSeconds(int workTimeSeconds) {
+        this.workTimeSeconds = workTimeSeconds;
+    }
+
+    public int getRestTimeSeconds() {
+        return restTimeSeconds;
+    }
+
+    public void setRestTimeSeconds(int restTimeSeconds) {
+        this.restTimeSeconds = restTimeSeconds;
+    }
 }

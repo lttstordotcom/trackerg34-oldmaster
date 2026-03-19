@@ -3,3 +3,7 @@ id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRa
 2,2026-01-15,true,false,7001,2761,197.19,45.65,0,
 3,2026-01-16,true,true,1,600,300000.00,0.00,1,slow
 4,2026-01-15,false,false,5000,170,17.00,71239.57,0,
+5,2026-03-19,false,true,222,1342,3022.52,0.01,22,
+6,2026-03-12,false,true,2223,1342,301.84,12.73,22,22
+7,2026-03-12,false,false,3000,500,83.33,604.80,28,3K
+8,2026-03-08,false,false,22,1342,30500.00,0.00,22,

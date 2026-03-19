@@ -11,18 +11,43 @@ public class IntervalForm {
     private Integer restMinutes;
     private Integer restSeconds;
 
-    public Integer getWorkDistanceMeters() { return workDistanceMeters; }
-    public void setWorkDistanceMeters(Integer workDistanceMeters) { this.workDistanceMeters = workDistanceMeters; }
+    public Integer getWorkDistanceMeters() {
+        return workDistanceMeters;
+    }
 
-    public Integer getWorkMinutes() { return workMinutes; }
-    public void setWorkMinutes(Integer workMinutes) { this.workMinutes = workMinutes; }
+    public void setWorkDistanceMeters(Integer workDistanceMeters) {
+        this.workDistanceMeters = workDistanceMeters;
+    }
 
-    public Integer getWorkSeconds() { return workSeconds; }
-    public void setWorkSeconds(Integer workSeconds) { this.workSeconds = workSeconds; }
+    public Integer getWorkMinutes() {
+        return workMinutes;
+    }
 
-    public Integer getRestMinutes() { return restMinutes; }
-    public void setRestMinutes(Integer restMinutes) { this.restMinutes = restMinutes; }
+    public void setWorkMinutes(Integer workMinutes) {
+        this.workMinutes = workMinutes;
+    }
 
-    public Integer getRestSeconds() { return restSeconds; }
-    public void setRestSeconds(Integer restSeconds) { this.restSeconds = restSeconds; }
+    public Integer getWorkSeconds() {
+        return workSeconds;
+    }
+
+    public void setWorkSeconds(Integer workSeconds) {
+        this.workSeconds = workSeconds;
+    }
+
+    public Integer getRestMinutes() {
+        return restMinutes;
+    }
+
+    public void setRestMinutes(Integer restMinutes) {
+        this.restMinutes = restMinutes;
+    }
+
+    public Integer getRestSeconds() {
+        return restSeconds;
+    }
+
+    public void setRestSeconds(Integer restSeconds) {
+        this.restSeconds = restSeconds;
+    }
 }

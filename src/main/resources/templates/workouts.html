@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>TrackErg - Workouts</title>
     <style>
         :root { --border:#222; --muted:#666; --bg:#fff; --soft:#f5f5f5; }
@@ -45,28 +45,28 @@
 
 <div class="content">
     <div class="row">
-        <form class="search" method="get" action="/workouts">
+        <form action="/workouts" class="search" method="get">
             <span aria-hidden="true">🔎</span>
-            <input type="text" name="query" placeholder="Search" th:value="${query}"/>
-            <input type="hidden" name="sort" th:value="${sort}"/>
+            <input name="query" placeholder="Search" th:value="${query}" type="text"/>
+            <input name="sort" th:value="${sort}" type="hidden"/>
             <button class="btn" type="submit">Go</button>
         </form>
 
         <div class="controls">
-            <form method="get" action="/workouts">
-                <input type="hidden" name="query" th:value="${query}"/>
+            <form action="/workouts" method="get">
+                <input name="query" th:value="${query}" type="hidden"/>
                 <label class="nowrap">
                     Sort by
                     <select name="sort" onchange="this.form.submit()">
-                        <option value="" th:selected="${sort==''}">—</option>
-                        <option value="distance" th:selected="${sort=='distance'}">Distance</option>
-                        <option value="time" th:selected="${sort=='time'}">Time</option>
-                        <option value="split" th:selected="${sort=='split'}">Split</option>
-                        <option value="interval" th:selected="${sort=='interval'}">Interval</option>
-                        <option value="noninterval" th:selected="${sort=='noninterval'}">Non-Interval</option>
-                        <option value="watts" th:selected="${sort=='watts'}">Watts</option>
-                        <option value="oldest" th:selected="${sort=='oldest'}">Oldest</option>
-                        <option value="newest" th:selected="${sort=='newest'}">Newest</option>
+                        <option th:selected="${sort==''}" value="">—</option>
+                        <option th:selected="${sort=='distance'}" value="distance">Distance</option>
+                        <option th:selected="${sort=='time'}" value="time">Time</option>
+                        <option th:selected="${sort=='split'}" value="split">Split</option>
+                        <option th:selected="${sort=='interval'}" value="interval">Interval</option>
+                        <option th:selected="${sort=='noninterval'}" value="noninterval">Non-Interval</option>
+                        <option th:selected="${sort=='watts'}" value="watts">Watts</option>
+                        <option th:selected="${sort=='oldest'}" value="oldest">Oldest</option>
+                        <option th:selected="${sort=='newest'}" value="newest">Newest</option>
                     </select>
                 </label>
             </form>
@@ -93,8 +93,8 @@
         <tr th:each="w : ${workouts}">
             <td th:text="${w.date}">2026-01-01</td>
 
-            <td th:text="${w.splitSeconds > 0 ? #numbers.formatDecimal(w.splitSeconds,0,1) : ''}"
-                class="muted"></td>
+            <td class="muted"
+                th:text="${w.splitSeconds > 0 ? #numbers.formatDecimal(w.splitSeconds,0,1) : ''}"></td>
 
             <td th:text="${w.distanceMeters > 0 ? w.distanceMeters : ''}"></td>
 
@@ -109,8 +109,8 @@
 
             <td class="actions nowrap">
                 <a class="btn" th:href="@{'/workouts/edit/' + ${w.id}}">Edit</a>
-                <a class="btn" th:href="@{'/workouts/delete/' + ${w.id}}"
-                   onclick="return confirm('Delete this workout?');">Delete</a>
+                <a class="btn" onclick="return confirm('Delete this workout?');"
+                   th:href="@{'/workouts/delete/' + ${w.id}}">Delete</a>
             </td>
         </tr>
         </tbody>

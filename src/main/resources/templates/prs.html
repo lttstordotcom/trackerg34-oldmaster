@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>TrackErg - PRs</title>
-  <style>
-    :root { --border:#222; --soft:#f5f5f5; }
-    body { font-family: Arial, sans-serif; margin:0; }
-    .topbar { display:flex; align-items:center; border-bottom:2px solid var(--border); }
-    .tabs { display:flex; }
-    .tab { padding:10px 14px; border-right:2px solid var(--border); text-decoration:none; color:#000; }
-    .tab.active { background: var(--soft); font-weight:700; }
-    .content { padding: 14px; }
-    table { width:100%; border-collapse:collapse; margin-top:10px; }
-    th, td { border:2px solid var(--border); padding:8px; text-align:left; }
-    th { background: var(--soft); }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>TrackErg - PRs</title>
+    <style>
+        :root { --border:#222; --soft:#f5f5f5; }
+        body { font-family: Arial, sans-serif; margin:0; }
+        .topbar { display:flex; align-items:center; border-bottom:2px solid var(--border); }
+        .tabs { display:flex; }
+        .tab { padding:10px 14px; border-right:2px solid var(--border); text-decoration:none; color:#000; }
+        .tab.active { background: var(--soft); font-weight:700; }
+        .content { padding: 14px; }
+        table { width:100%; border-collapse:collapse; margin-top:10px; }
+        th, td { border:2px solid var(--border); padding:8px; text-align:left; }
+        th { background: var(--soft); }
+    </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="tabs">
-    <a class="tab" href="/workouts">View Workouts</a>
-    <a class="tab" href="/workouts/new">Add Workout</a>
-    <a class="tab active" href="/prs">View PR</a>
-  </div>
+    <div class="tabs">
+        <a class="tab" href="/workouts">View Workouts</a>
+        <a class="tab" href="/workouts/new">Add Workout</a>
+        <a class="tab active" href="/prs">View PR</a>
+    </div>
 </div>
 
 <div class="content">
-  <h2>Best PRs (by watts)</h2>
-  <table>
-    <thead>
-    <tr>
-      <th>Category</th>
-      <th>Date</th>
-      <th>Distance</th>
-      <th>Total time</th>
-      <th>Split</th>
-      <th>Watts</th>
-      <th>Intervals</th>
-      <th>★</th>
-      <th>Notes</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="entry : ${best}">
-      <td th:text="${entry.key}">2k</td>
-      <td th:text="${entry.value.date}"></td>
-      <td th:text="${entry.value.distanceMeters}"></td>
-      <td th:text="${entry.value.timeSeconds > 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}"></td>
-      <td th:text="${entry.value.splitSeconds > 0 ? #numbers.formatDecimal(entry.value.splitSeconds,0,1) : ''}"></td>
-      <td th:text="${entry.value.watts > 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}"></td>
-      <td th:text="${entry.value.interval ? 'Yes' : 'No'}"></td>
-      <td th:text="${entry.value.favorite ? '★' : ''}"></td>
-      <td th:text="${entry.value.notes}"></td>
-    </tr>
-    </tbody>
-  </table>
+    <h2>Best PRs (by watts)</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Distance</th>
+            <th>Total time</th>
+            <th>Split</th>
+            <th>Watts</th>
+            <th>Intervals</th>
+            <th>★</th>
+            <th>Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${best}">
+            <td th:text="${entry.key}">2k</td>
+            <td th:text="${entry.value.date}"></td>
+            <td th:text="${entry.value.distanceMeters}"></td>
+            <td th:text="${entry.value.timeSeconds > 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}"></td>
+            <td th:text="${entry.value.splitSeconds > 0 ? #numbers.formatDecimal(entry.value.splitSeconds,0,1) : ''}"></td>
+            <td th:text="${entry.value.watts > 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}"></td>
+            <td th:text="${entry.value.interval ? 'Yes' : 'No'}"></td>
+            <td th:text="${entry.value.favorite ? '★' : ''}"></td>
+            <td th:text="${entry.value.notes}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

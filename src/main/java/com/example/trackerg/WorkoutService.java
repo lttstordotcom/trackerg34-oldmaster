@@ -18,7 +18,6 @@ public class WorkoutService {
         this.intervals = repo.loadIntervals();
     }
 
-    // ---------- Public API ----------
 
     public List<Workout> listWorkouts(String query, String sortKey) {
         List<Workout> filtered = filter(workouts, query);
@@ -74,8 +73,6 @@ public class WorkoutService {
         }
         return best;
     }
-
-    // ---------- Core form mapping ----------
 
     private void applyFormToWorkoutAndIntervals(WorkoutForm form, Workout w, Integer workoutIdForIntervals) {
         if (form.getDate() == null) form.setDate(LocalDate.now());
@@ -152,8 +149,9 @@ public class WorkoutService {
             boolean numericMatch = false;
             try {
                 int n = Integer.parseInt(q);
-                numericMatch = (w.getDistanceMeters() == n) || ((int)Math.round(w.getWatts()) == n);
-            } catch (NumberFormatException ignored) {}
+                numericMatch = (w.getDistanceMeters() == n) || ((int) Math.round(w.getWatts()) == n);
+            } catch (NumberFormatException ignored) {
+            }
 
             return notes.contains(q) || date.contains(q) || type.contains(q) || numericMatch;
         }).collect(Collectors.toList());
@@ -164,7 +162,8 @@ public class WorkoutService {
 
         switch (sortKey) {
             case "distance" -> list.sort(Comparator.comparingInt(Workout::getDistanceMeters).reversed());
-            case "time" -> list.sort(Comparator.comparingInt(Workout::getTimeSeconds)); // lower time = better, but just consistent
+            case "time" ->
+                    list.sort(Comparator.comparingInt(Workout::getTimeSeconds)); // lower time = better, but just consistent
             case "split" -> list.sort(Comparator.comparingDouble(Workout::getSplitSeconds));
             case "interval" -> list.sort(Comparator.comparing(Workout::isInterval).reversed());
             case "noninterval" -> list.sort(Comparator.comparing(Workout::isInterval)); // false first
@@ -197,12 +196,11 @@ public class WorkoutService {
 
     private String categoryFor(Workout w) {
         // PR page categories
-        if (w.getDistanceMeters() == 2000) return "2k";
-        if (w.getDistanceMeters() == 5000) return "5k";
-        if (w.getDistanceMeters() == 6000) return "6k";
+        if (w.getDistanceMeters() % 1000 == 0) return w.getDistanceMeters()/1000 +"k";
         if (w.isInterval()) return "Intervals";
-        return "Other";
+        return "Fastest Split";
     }
+
     //Error catching stuff 12/28
     private int nextId() {
         return workouts.stream().mapToInt(Workout::getId).max().orElse(0) + 1;
@@ -213,7 +211,9 @@ public class WorkoutService {
         repo.saveIntervals(intervals);
     }
 
-    private int safeInt(Integer v) { return v == null ? 0 : Math.max(0, v); }
+    private int safeInt(Integer v) {
+        return v == null ? 0 : Math.max(0, v);
+    }
 
     private int toSeconds(Integer minutes, Integer seconds) {
         int m = (minutes == null ? 0 : Math.max(0, minutes));

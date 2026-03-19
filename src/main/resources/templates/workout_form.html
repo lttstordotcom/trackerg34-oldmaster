@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>TrackErg - Add Workout</title>
     <style>
         :root { --border:#222; --soft:#f5f5f5; }
@@ -45,31 +45,31 @@
     <div class="left">
         <h2 th:text="${mode=='edit'} ? 'Edit Workout' : 'Add Workout'">Add Workout</h2>
 
-        <form th:object="${form}"
+        <form method="post"
               th:action="${mode=='edit'} ? @{/workouts/update} : @{/workouts}"
-              method="post">
+              th:object="${form}">
 
-            <input type="hidden" th:field="*{id}"/>
+            <input th:field="*{id}" type="hidden"/>
 
             <label>Date</label>
-            <input type="date" th:field="*{date}" required/>
+            <input required th:field="*{date}" type="date"/>
 
             <div class="inline" style="margin-top:10px;">
                 <label style="margin:0;">Interval</label>
-                <input type="checkbox" th:field="*{interval}" id="intervalToggle"/>
+                <input id="intervalToggle" th:field="*{interval}" type="checkbox"/>
             </div>
 
             <label>time to complete</label>
             <div class="inline">
-                <input class="small" type="number" min="0" placeholder="min" th:field="*{timeMinutes}" />
-                <input class="small" type="number" min="0" placeholder="sec" th:field="*{timeSeconds}" />
+                <input class="small" min="0" placeholder="min" th:field="*{timeMinutes}" type="number"/>
+                <input class="small" min="0" placeholder="sec" th:field="*{timeSeconds}" type="number"/>
             </div>
 
             <label>Distance</label>
-            <input type="number" min="0" placeholder="meters" th:field="*{distanceMeters}"/>
+            <input min="0" placeholder="meters" th:field="*{distanceMeters}" type="number"/>
 
             <label>stroke rate</label>
-            <input type="number" min="0" placeholder="spm" th:field="*{strokeRate}"/>
+            <input min="0" placeholder="spm" th:field="*{strokeRate}" type="number"/>
 
             <label>notes</label>
             <textarea th:field="*{notes}"></textarea>
@@ -77,21 +77,21 @@
             <div class="starBox">
                 <div style="font-size:36px;">★</div>
                 <label style="margin:0;">Favorite</label>
-                <input type="checkbox" th:field="*{favorite}"/>
+                <input th:field="*{favorite}" type="checkbox"/>
             </div>
 
             <!-- Interval section -->
             <div class="intervals" id="intervalsBox">
                 <div class="inline" style="justify-content:space-between;">
                     <strong>Intervals</strong>
-                    <button class="smallBtn" type="button" onclick="addIntervalRow()">+</button>
+                    <button class="smallBtn" onclick="addIntervalRow()" type="button">+</button>
                 </div>
                 <div class="hint">Fill either work distance OR work time. Rest is optional.</div>
 
                 <div id="intervalRows"></div>
 
                 <!-- Hidden template row index -->
-                <input type="hidden" id="intervalCount" value="0"/>
+                <input id="intervalCount" type="hidden" value="0"/>
             </div>
 
             <div style="margin-top:14px;">

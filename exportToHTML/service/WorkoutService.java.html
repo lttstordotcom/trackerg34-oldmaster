@@ -1,147 +1,295 @@
 <html>
 <head>
-<title>WorkoutService.java</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.s0 { color: #cf8e6d;}
-.s1 { color: #bcbec4;}
-.s2 { color: #bcbec4;}
-.s3 { color: #7a7e85;}
-.s4 { color: #6aab73;}
-.s5 { color: #2aacb8;}
-</style>
+    <title>WorkoutService.java</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style type="text/css">
+        .s0 { color: #cf8e6d;}
+        .s1 { color: #bcbec4;}
+        .s2 { color: #bcbec4;}
+        .s3 { color: #7a7e85;}
+        .s4 { color: #6aab73;}
+        .s5 { color: #2aacb8;}
+    </style>
 </head>
 <body bgcolor="#191a1c">
-<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
-<tr><td><center>
-<font face="Arial, Helvetica" color="#000000">
-WorkoutService.java</font>
-</center></td></tr></table>
-<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">service</span><span class="s2">;</span>
+<table BGCOLOR="#606060" CELLPADDING=5 CELLSPACING=0 COLS=1 WIDTH="100%">
+    <tr>
+        <td>
+            <center>
+                <font color="#000000" face="Arial, Helvetica">
+                    WorkoutService.java</font>
+            </center>
+        </td>
+    </tr>
+</table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+        class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">service</span><span
+        class="s2">;</span>
 
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">IntervalForm</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">WorkoutForm</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Interval</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Workout</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">repository</span><span class="s2">.</span><span class="s1">WorkoutFileRepository</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span class="s2">.</span><span class="s1">Service</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span
+            class="s2">.</span><span class="s1">IntervalForm</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span
+            class="s2">.</span><span class="s1">WorkoutForm</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">model</span><span class="s2">.</span><span class="s1">Interval</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">model</span><span class="s2">.</span><span class="s1">Workout</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+            class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span
+            class="s1">repository</span><span class="s2">.</span><span class="s1">WorkoutFileRepository</span><span
+            class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span
+            class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span
+            class="s2">.</span><span class="s1">Service</span><span class="s2">;</span>
 
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.*;</span>
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">.</span><span class="s1">Collectors</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span
+            class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.</span><span class="s1">stream</span><span class="s2">.</span><span class="s1">Collectors</span><span
+            class="s2">;</span>
 
 <span class="s1">@Service</span>
 <span class="s0">public class </span><span class="s1">WorkoutService </span><span class="s2">{</span>
 
-    <span class="s0">private final </span><span class="s1">WorkoutFileRepository repo </span><span class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutFileRepository</span><span class="s2">();</span>
-    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">workouts</span><span class="s2">;</span>
-    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">intervals</span><span class="s2">;</span>
+    <span class="s0">private final </span><span class="s1">WorkoutFileRepository repo </span><span
+            class="s2">= </span><span class="s0">new </span><span class="s1">WorkoutFileRepository</span><span
+            class="s2">();</span>
+    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span
+            class="s2">&gt; </span><span class="s1">workouts</span><span class="s2">;</span>
+    <span class="s0">private final </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span
+            class="s2">&gt; </span><span class="s1">intervals</span><span class="s2">;</span>
 
     <span class="s0">public </span><span class="s1">WorkoutService</span><span class="s2">() {</span>
-        <span class="s0">this</span><span class="s2">.</span><span class="s1">workouts </span><span class="s2">= </span><span class="s1">repo</span><span class="s2">.</span><span class="s1">loadWorkouts</span><span class="s2">();</span>
-        <span class="s0">this</span><span class="s2">.</span><span class="s1">intervals </span><span class="s2">= </span><span class="s1">repo</span><span class="s2">.</span><span class="s1">loadIntervals</span><span class="s2">();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">workouts </span><span class="s2">= </span><span
+            class="s1">repo</span><span class="s2">.</span><span class="s1">loadWorkouts</span><span
+            class="s2">();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">intervals </span><span
+            class="s2">= </span><span class="s1">repo</span><span class="s2">.</span><span
+            class="s1">loadIntervals</span><span class="s2">();</span>
     <span class="s2">}</span>
 
     <span class="s3">// ---------- Public API ----------</span>
 
-    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">listWorkouts</span><span class="s2">(</span><span class="s1">String query</span><span class="s2">, </span><span class="s1">String sortKey</span><span class="s2">) {</span>
-        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">filtered </span><span class="s2">= </span><span class="s1">filter</span><span class="s2">(</span><span class="s1">workouts</span><span class="s2">, </span><span class="s1">query</span><span class="s2">);</span>
-        <span class="s1">sort</span><span class="s2">(</span><span class="s1">filtered</span><span class="s2">, </span><span class="s1">sortKey</span><span class="s2">);</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span
+            class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">listWorkouts</span><span
+            class="s2">(</span><span class="s1">String query</span><span class="s2">, </span><span class="s1">String sortKey</span><span
+            class="s2">) {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span
+            class="s2">&gt; </span><span class="s1">filtered </span><span class="s2">= </span><span
+            class="s1">filter</span><span class="s2">(</span><span class="s1">workouts</span><span
+            class="s2">, </span><span class="s1">query</span><span class="s2">);</span>
+        <span class="s1">sort</span><span class="s2">(</span><span class="s1">filtered</span><span
+            class="s2">, </span><span class="s1">sortKey</span><span class="s2">);</span>
         <span class="s0">return </span><span class="s1">filtered</span><span class="s2">;</span>
     <span class="s2">}</span>
 
-    <span class="s0">public </span><span class="s1">Workout getWorkout</span><span class="s2">(</span><span class="s0">int </span><span class="s1">id</span><span class="s2">) {</span>
-        <span class="s0">return </span><span class="s1">workouts</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
-                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">w -&gt; w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">() == </span><span class="s1">id</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">Workout getWorkout</span><span class="s2">(</span><span class="s0">int </span><span
+            class="s1">id</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">workouts</span><span class="s2">.</span><span
+            class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">w -&gt; w</span><span
+            class="s2">.</span><span class="s1">getId</span><span class="s2">() == </span><span
+            class="s1">id</span><span class="s2">)</span>
                 <span class="s2">.</span><span class="s1">findFirst</span><span class="s2">()</span>
-                <span class="s2">.</span><span class="s1">orElseThrow</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s0">new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Workout not found: &quot; </span><span class="s2">+ </span><span class="s1">id</span><span class="s2">));</span>
+                <span class="s2">.</span><span class="s1">orElseThrow</span><span class="s2">(() </span><span
+            class="s1">-&gt; </span><span class="s0">new </span><span class="s1">IllegalArgumentException</span><span
+            class="s2">(</span><span class="s4">&quot;Workout not found: &quot; </span><span class="s2">+ </span><span
+            class="s1">id</span><span class="s2">));</span>
     <span class="s2">}</span>
 
-    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">getIntervalsForWorkout</span><span class="s2">(</span><span class="s0">int </span><span class="s1">workoutId</span><span class="s2">) {</span>
-        <span class="s0">return </span><span class="s1">intervals</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
-                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">i -&gt; i</span><span class="s2">.</span><span class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">workoutId</span><span class="s2">)</span>
-                <span class="s2">.</span><span class="s1">sorted</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingInt</span><span class="s2">(</span><span class="s1">Interval::getIndex</span><span class="s2">))</span>
-                <span class="s2">.</span><span class="s1">collect</span><span class="s2">(</span><span class="s1">Collectors</span><span class="s2">.</span><span class="s1">toList</span><span class="s2">());</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span
+            class="s1">Interval</span><span class="s2">&gt; </span><span class="s1">getIntervalsForWorkout</span><span
+            class="s2">(</span><span class="s0">int </span><span class="s1">workoutId</span><span class="s2">) {</span>
+        <span class="s0">return </span><span class="s1">intervals</span><span class="s2">.</span><span
+            class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">i -&gt; i</span><span
+            class="s2">.</span><span class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">workoutId</span><span
+            class="s2">)</span>
+                <span class="s2">.</span><span class="s1">sorted</span><span class="s2">(</span><span class="s1">Comparator</span><span
+            class="s2">.</span><span class="s1">comparingInt</span><span class="s2">(</span><span class="s1">Interval::getIndex</span><span
+            class="s2">))</span>
+                <span class="s2">.</span><span class="s1">collect</span><span class="s2">(</span><span class="s1">Collectors</span><span
+            class="s2">.</span><span class="s1">toList</span><span class="s2">());</span>
     <span class="s2">}</span>
 
-    <span class="s0">public void </span><span class="s1">deleteWorkout</span><span class="s2">(</span><span class="s0">int </span><span class="s1">id</span><span class="s2">) {</span>
-        <span class="s1">workouts</span><span class="s2">.</span><span class="s1">removeIf</span><span class="s2">(</span><span class="s1">w -&gt; w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">() == </span><span class="s1">id</span><span class="s2">);</span>
-        <span class="s1">intervals</span><span class="s2">.</span><span class="s1">removeIf</span><span class="s2">(</span><span class="s1">i -&gt; i</span><span class="s2">.</span><span class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">id</span><span class="s2">);</span>
+    <span class="s0">public void </span><span class="s1">deleteWorkout</span><span class="s2">(</span><span class="s0">int </span><span
+            class="s1">id</span><span class="s2">) {</span>
+        <span class="s1">workouts</span><span class="s2">.</span><span class="s1">removeIf</span><span
+            class="s2">(</span><span class="s1">w -&gt; w</span><span class="s2">.</span><span
+            class="s1">getId</span><span class="s2">() == </span><span class="s1">id</span><span class="s2">);</span>
+        <span class="s1">intervals</span><span class="s2">.</span><span class="s1">removeIf</span><span
+            class="s2">(</span><span class="s1">i -&gt; i</span><span class="s2">.</span><span
+            class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">id</span><span
+            class="s2">);</span>
         <span class="s1">persist</span><span class="s2">();</span>
     <span class="s2">}</span>
 
-    <span class="s0">public void </span><span class="s1">createFromForm</span><span class="s2">(</span><span class="s1">WorkoutForm form</span><span class="s2">) {</span>
-        <span class="s1">Workout w </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Workout</span><span class="s2">();</span>
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setId</span><span class="s2">(</span><span class="s1">nextId</span><span class="s2">());</span>
-        <span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span class="s1">form</span><span class="s2">, </span><span class="s1">w</span><span class="s2">, </span><span class="s0">null</span><span class="s2">);</span>
-        <span class="s1">workouts</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
+    <span class="s0">public void </span><span class="s1">createFromForm</span><span class="s2">(</span><span class="s1">WorkoutForm form</span><span
+            class="s2">) {</span>
+        <span class="s1">Workout w </span><span class="s2">= </span><span class="s0">new </span><span
+            class="s1">Workout</span><span class="s2">();</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setId</span><span class="s2">(</span><span
+            class="s1">nextId</span><span class="s2">());</span>
+        <span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span class="s1">form</span><span
+            class="s2">, </span><span class="s1">w</span><span class="s2">, </span><span class="s0">null</span><span
+            class="s2">);</span>
+        <span class="s1">workouts</span><span class="s2">.</span><span class="s1">add</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
         <span class="s1">persist</span><span class="s2">();</span>
     <span class="s2">}</span>
 
-    <span class="s0">public void </span><span class="s1">updateFromForm</span><span class="s2">(</span><span class="s1">WorkoutForm form</span><span class="s2">) {</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">() == </span><span class="s0">null</span><span class="s2">) </span><span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span class="s2">(</span><span class="s4">&quot;Missing id for update&quot;</span><span class="s2">);</span>
-        <span class="s1">Workout w </span><span class="s2">= </span><span class="s1">getWorkout</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
+    <span class="s0">public void </span><span class="s1">updateFromForm</span><span class="s2">(</span><span class="s1">WorkoutForm form</span><span
+            class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getId</span><span class="s2">() == </span><span class="s0">null</span><span
+            class="s2">) </span><span class="s0">throw new </span><span class="s1">IllegalArgumentException</span><span
+            class="s2">(</span><span class="s4">&quot;Missing id for update&quot;</span><span class="s2">);</span>
+        <span class="s1">Workout w </span><span class="s2">= </span><span class="s1">getWorkout</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getId</span><span
+            class="s2">());</span>
 
         <span class="s3">// remove old intervals (if any), then re-add</span>
-        <span class="s1">intervals</span><span class="s2">.</span><span class="s1">removeIf</span><span class="s2">(</span><span class="s1">i -&gt; i</span><span class="s2">.</span><span class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
+        <span class="s1">intervals</span><span class="s2">.</span><span class="s1">removeIf</span><span
+            class="s2">(</span><span class="s1">i -&gt; i</span><span class="s2">.</span><span
+            class="s1">getWorkoutId</span><span class="s2">() == </span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
 
-        <span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span class="s1">form</span><span class="s2">, </span><span class="s1">w</span><span class="s2">, </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
+        <span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span class="s1">form</span><span
+            class="s2">, </span><span class="s1">w</span><span class="s2">, </span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">getId</span><span class="s2">());</span>
         <span class="s1">persist</span><span class="s2">();</span>
     <span class="s2">}</span>
 
-    <span class="s0">public </span><span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">bestPRs</span><span class="s2">() {</span>
+    <span class="s0">public </span><span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span
+            class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span
+            class="s1">bestPRs</span><span class="s2">() {</span>
         <span class="s3">// PR = best watts per cat(2k, 5k, 6...)</span>
-        <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">best </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashMap</span><span class="s2">&lt;&gt;();</span>
-        <span class="s0">for </span><span class="s2">(</span><span class="s1">Workout w </span><span class="s2">: </span><span class="s1">workouts</span><span class="s2">) {</span>
-            <span class="s1">String cat </span><span class="s2">= </span><span class="s1">categoryFor</span><span class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
-            <span class="s1">best</span><span class="s2">.</span><span class="s1">compute</span><span class="s2">(</span><span class="s1">cat</span><span class="s2">, (</span><span class="s1">k</span><span class="s2">, </span><span class="s1">current</span><span class="s2">) </span><span class="s1">-&gt; </span><span class="s2">(</span><span class="s1">current </span><span class="s2">== </span><span class="s0">null </span><span class="s2">|| </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getWatts</span><span class="s2">() &gt; </span><span class="s1">current</span><span class="s2">.</span><span class="s1">getWatts</span><span class="s2">()) ? </span><span class="s1">w </span><span class="s2">: </span><span class="s1">current</span><span class="s2">);</span>
+        <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span
+            class="s2">, </span><span class="s1">Workout</span><span class="s2">&gt; </span><span
+            class="s1">best </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashMap</span><span
+            class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Workout w </span><span
+            class="s2">: </span><span class="s1">workouts</span><span class="s2">) {</span>
+            <span class="s1">String cat </span><span class="s2">= </span><span class="s1">categoryFor</span><span
+            class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
+            <span class="s1">best</span><span class="s2">.</span><span class="s1">compute</span><span
+            class="s2">(</span><span class="s1">cat</span><span class="s2">, (</span><span class="s1">k</span><span
+            class="s2">, </span><span class="s1">current</span><span class="s2">) </span><span
+            class="s1">-&gt; </span><span class="s2">(</span><span class="s1">current </span><span class="s2">== </span><span
+            class="s0">null </span><span class="s2">|| </span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getWatts</span><span class="s2">() &gt; </span><span class="s1">current</span><span
+            class="s2">.</span><span class="s1">getWatts</span><span class="s2">()) ? </span><span
+            class="s1">w </span><span class="s2">: </span><span class="s1">current</span><span class="s2">);</span>
         <span class="s2">}</span>
         <span class="s0">return </span><span class="s1">best</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s3">// ---------- Core form mapping ----------</span>
 
-    <span class="s0">private void </span><span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span class="s1">WorkoutForm form</span><span class="s2">, </span><span class="s1">Workout w</span><span class="s2">, </span><span class="s1">Integer workoutIdForIntervals</span><span class="s2">) {</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">() == </span><span class="s0">null</span><span class="s2">) </span><span class="s1">form</span><span class="s2">.</span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">LocalDate</span><span class="s2">.</span><span class="s1">now</span><span class="s2">());</span>
+    <span class="s0">private void </span><span class="s1">applyFormToWorkoutAndIntervals</span><span class="s2">(</span><span
+            class="s1">WorkoutForm form</span><span class="s2">, </span><span class="s1">Workout w</span><span
+            class="s2">, </span><span class="s1">Integer workoutIdForIntervals</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getDate</span><span class="s2">() == </span><span class="s0">null</span><span
+            class="s2">) </span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">setDate</span><span class="s2">(</span><span class="s1">LocalDate</span><span class="s2">.</span><span
+            class="s1">now</span><span class="s2">());</span>
 
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">());</span>
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setInterval</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">());</span>
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setFavorite</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">isFavorite</span><span class="s2">());</span>
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setStrokeRate</span><span class="s2">(</span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getStrokeRate</span><span class="s2">()));</span>
-        <span class="s1">w</span><span class="s2">.</span><span class="s1">setNotes</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">() == </span><span class="s0">null </span><span class="s2">? </span><span class="s4">&quot;&quot; </span><span class="s2">: </span><span class="s1">form</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">());</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setDate</span><span class="s2">(</span><span
+            class="s1">form</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">());</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setInterval</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">isInterval</span><span class="s2">());</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setFavorite</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">isFavorite</span><span class="s2">());</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setStrokeRate</span><span class="s2">(</span><span
+            class="s1">safeInt</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getStrokeRate</span><span class="s2">()));</span>
+        <span class="s1">w</span><span class="s2">.</span><span class="s1">setNotes</span><span class="s2">(</span><span
+            class="s1">form</span><span class="s2">.</span><span class="s1">getNotes</span><span
+            class="s2">() == </span><span class="s0">null </span><span class="s2">? </span><span
+            class="s4">&quot;&quot; </span><span class="s2">: </span><span class="s1">form</span><span
+            class="s2">.</span><span class="s1">getNotes</span><span class="s2">());</span>
 
-        <span class="s0">if </span><span class="s2">(!</span><span class="s1">form</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">()) {</span>
-            <span class="s0">int </span><span class="s1">totalSeconds </span><span class="s2">= </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getTimeMinutes</span><span class="s2">(), </span><span class="s1">form</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">());</span>
-            <span class="s0">int </span><span class="s1">dist </span><span class="s2">= </span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">());</span>
+        <span class="s0">if </span><span class="s2">(!</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">isInterval</span><span class="s2">()) {</span>
+            <span class="s0">int </span><span class="s1">totalSeconds </span><span class="s2">= </span><span class="s1">toSeconds</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getTimeMinutes</span><span class="s2">(), </span><span class="s1">form</span><span
+            class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">());</span>
+            <span class="s0">int </span><span class="s1">dist </span><span class="s2">= </span><span
+            class="s1">safeInt</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">());</span>
 
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">totalSeconds</span><span class="s2">);</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span class="s1">dist</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span
+            class="s2">(</span><span class="s1">totalSeconds</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span
+            class="s1">dist</span><span class="s2">);</span>
 
-            <span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
+            <span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span class="s1">w</span><span
+            class="s2">);</span>
 
         <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
             <span class="s3">// Interval mode total time = interval work times + rests if provided</span>
             <span class="s3">//total distance if provided</span>
-            <span class="s0">int </span><span class="s1">totalTime </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
-            <span class="s0">int </span><span class="s1">totalDistance </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">totalTime </span><span class="s2">= </span><span
+            class="s5">0</span><span class="s2">;</span>
+            <span class="s0">int </span><span class="s1">totalDistance </span><span class="s2">= </span><span
+            class="s5">0</span><span class="s2">;</span>
 
-            <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">rows </span><span class="s2">= </span><span class="s1">form</span><span class="s2">.</span><span class="s1">getIntervals</span><span class="s2">() == </span><span class="s0">null </span><span class="s2">? </span><span class="s1">List</span><span class="s2">.</span><span class="s1">of</span><span class="s2">() : </span><span class="s1">form</span><span class="s2">.</span><span class="s1">getIntervals</span><span class="s2">();</span>
-            <span class="s0">int </span><span class="s1">idx </span><span class="s2">= </span><span class="s5">1</span><span class="s2">;</span>
+            <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span
+            class="s2">&gt; </span><span class="s1">rows </span><span class="s2">= </span><span
+            class="s1">form</span><span class="s2">.</span><span class="s1">getIntervals</span><span
+            class="s2">() == </span><span class="s0">null </span><span class="s2">? </span><span
+            class="s1">List</span><span class="s2">.</span><span class="s1">of</span><span class="s2">() : </span><span
+            class="s1">form</span><span class="s2">.</span><span class="s1">getIntervals</span><span
+            class="s2">();</span>
+            <span class="s0">int </span><span class="s1">idx </span><span class="s2">= </span><span
+            class="s5">1</span><span class="s2">;</span>
 
-            <span class="s0">for </span><span class="s2">(</span><span class="s1">IntervalForm row </span><span class="s2">: </span><span class="s1">rows</span><span class="s2">) {</span>
-                <span class="s0">if </span><span class="s2">(</span><span class="s1">row </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">IntervalForm row </span><span
+            class="s2">: </span><span class="s1">rows</span><span class="s2">) {</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">row </span><span
+            class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span
+            class="s0">continue</span><span class="s2">;</span>
 
-                <span class="s0">int </span><span class="s1">workDist </span><span class="s2">= </span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span class="s1">getWorkDistanceMeters</span><span class="s2">());</span>
-                <span class="s0">int </span><span class="s1">workTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span class="s1">getWorkMinutes</span><span class="s2">(), </span><span class="s1">row</span><span class="s2">.</span><span class="s1">getWorkSeconds</span><span class="s2">());</span>
-                <span class="s0">int </span><span class="s1">restTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span class="s1">getRestMinutes</span><span class="s2">(), </span><span class="s1">row</span><span class="s2">.</span><span class="s1">getRestSeconds</span><span class="s2">());</span>
+                <span class="s0">int </span><span class="s1">workDist </span><span class="s2">= </span><span class="s1">safeInt</span><span
+            class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span class="s1">getWorkDistanceMeters</span><span
+            class="s2">());</span>
+                <span class="s0">int </span><span class="s1">workTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span
+            class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span
+            class="s1">getWorkMinutes</span><span class="s2">(), </span><span class="s1">row</span><span
+            class="s2">.</span><span class="s1">getWorkSeconds</span><span class="s2">());</span>
+                <span class="s0">int </span><span class="s1">restTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span
+            class="s2">(</span><span class="s1">row</span><span class="s2">.</span><span
+            class="s1">getRestMinutes</span><span class="s2">(), </span><span class="s1">row</span><span
+            class="s2">.</span><span class="s1">getRestSeconds</span><span class="s2">());</span>
 
                 <span class="s3">// skip empty rows</span>
-                <span class="s0">if </span><span class="s2">(</span><span class="s1">workDist </span><span class="s2">== </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span class="s1">workTime </span><span class="s2">== </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span class="s1">restTime </span><span class="s2">== </span><span class="s5">0</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">workDist </span><span
+            class="s2">== </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span
+            class="s1">workTime </span><span class="s2">== </span><span class="s5">0 </span><span
+            class="s2">&amp;&amp; </span><span class="s1">restTime </span><span class="s2">== </span><span
+            class="s5">0</span><span class="s2">) </span><span class="s0">continue</span><span class="s2">;</span>
 
-                <span class="s1">totalDistance </span><span class="s2">+= </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">workDist</span><span class="s2">);</span>
-                <span class="s1">totalTime </span><span class="s2">+= </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">workTime</span><span class="s2">) + </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">restTime</span><span class="s2">);</span>
+                <span class="s1">totalDistance </span><span class="s2">+= </span><span class="s1">Math</span><span
+            class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span
+            class="s2">, </span><span class="s1">workDist</span><span class="s2">);</span>
+                <span class="s1">totalTime </span><span class="s2">+= </span><span class="s1">Math</span><span
+            class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span
+            class="s2">, </span><span class="s1">workTime</span><span class="s2">) + </span><span class="s1">Math</span><span
+            class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span
+            class="s2">, </span><span class="s1">restTime</span><span class="s2">);</span>
 
-                <span class="s1">intervals</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Interval</span><span class="s2">(</span>
+                <span class="s1">intervals</span><span class="s2">.</span><span class="s1">add</span><span
+            class="s2">(</span><span class="s0">new </span><span class="s1">Interval</span><span class="s2">(</span>
                         <span class="s1">w</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">(),</span>
                         <span class="s1">idx</span><span class="s2">++,</span>
                         <span class="s1">workDist</span><span class="s2">,</span>
@@ -151,102 +299,246 @@ WorkoutService.java</font>
             <span class="s2">}</span>
 
             <span class="s3">// Allow user to optionally enter a total distance/time in the main fields too;</span>
-            <span class="s0">int </span><span class="s1">fallbackTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getTimeMinutes</span><span class="s2">(), </span><span class="s1">form</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">());</span>
-            <span class="s0">int </span><span class="s1">fallbackDist </span><span class="s2">= </span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">());</span>
+            <span class="s0">int </span><span class="s1">fallbackTime </span><span class="s2">= </span><span class="s1">toSeconds</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getTimeMinutes</span><span class="s2">(), </span><span class="s1">form</span><span
+            class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">());</span>
+            <span class="s0">int </span><span class="s1">fallbackDist </span><span class="s2">= </span><span class="s1">safeInt</span><span
+            class="s2">(</span><span class="s1">form</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">());</span>
 
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">totalTime </span><span class="s2">&gt; </span><span class="s5">0 </span><span class="s2">? </span><span class="s1">totalTime </span><span class="s2">: </span><span class="s1">fallbackTime</span><span class="s2">);</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span class="s1">totalDistance </span><span class="s2">&gt; </span><span class="s5">0 </span><span class="s2">? </span><span class="s1">totalDistance </span><span class="s2">: </span><span class="s1">fallbackDist</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setTimeSeconds</span><span
+            class="s2">(</span><span class="s1">totalTime </span><span class="s2">&gt; </span><span class="s5">0 </span><span
+            class="s2">? </span><span class="s1">totalTime </span><span class="s2">: </span><span class="s1">fallbackTime</span><span
+            class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span
+            class="s1">totalDistance </span><span class="s2">&gt; </span><span class="s5">0 </span><span
+            class="s2">? </span><span class="s1">totalDistance </span><span class="s2">: </span><span class="s1">fallbackDist</span><span
+            class="s2">);</span>
 
-            <span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span class="s1">w</span><span class="s2">);</span>
+            <span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span class="s1">w</span><span
+            class="s2">);</span>
         <span class="s2">}</span>
     <span class="s2">}</span>
 
     <span class="s3">//Filtering &amp; Sorting</span>
 
-    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">filter</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">list</span><span class="s2">, </span><span class="s1">String query</span><span class="s2">) {</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">query </span><span class="s2">== </span><span class="s0">null </span><span class="s2">|| </span><span class="s1">query</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span class="s1">isEmpty</span><span class="s2">()) </span><span class="s0">return new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;(</span><span class="s1">list</span><span class="s2">);</span>
-        <span class="s1">String q </span><span class="s2">= </span><span class="s1">query</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span class="s1">toLowerCase</span><span class="s2">();</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span
+            class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">filter</span><span
+            class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span
+            class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">list</span><span class="s2">, </span><span
+            class="s1">String query</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">query </span><span
+            class="s2">== </span><span class="s0">null </span><span class="s2">|| </span><span
+            class="s1">query</span><span class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span
+            class="s1">isEmpty</span><span class="s2">()) </span><span class="s0">return new </span><span class="s1">ArrayList</span><span
+            class="s2">&lt;&gt;(</span><span class="s1">list</span><span class="s2">);</span>
+        <span class="s1">String q </span><span class="s2">= </span><span class="s1">query</span><span
+            class="s2">.</span><span class="s1">trim</span><span class="s2">().</span><span
+            class="s1">toLowerCase</span><span class="s2">();</span>
 
-        <span class="s0">return </span><span class="s1">list</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">().</span><span class="s1">filter</span><span class="s2">(</span><span class="s1">w -&gt; </span><span class="s2">{</span>
-            <span class="s1">String notes </span><span class="s2">= (</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">() == </span><span class="s0">null</span><span class="s2">) ? </span><span class="s4">&quot;&quot; </span><span class="s2">: </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span class="s2">().</span><span class="s1">toLowerCase</span><span class="s2">();</span>
-            <span class="s1">String date </span><span class="s2">= (</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">() == </span><span class="s0">null</span><span class="s2">) ? </span><span class="s4">&quot;&quot; </span><span class="s2">: </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">().</span><span class="s1">toString</span><span class="s2">();</span>
-            <span class="s1">String type </span><span class="s2">= </span><span class="s1">w</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">() ? </span><span class="s4">&quot;interval&quot; </span><span class="s2">: </span><span class="s4">&quot;non-interval&quot;</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">list</span><span class="s2">.</span><span
+            class="s1">stream</span><span class="s2">().</span><span class="s1">filter</span><span
+            class="s2">(</span><span class="s1">w -&gt; </span><span class="s2">{</span>
+            <span class="s1">String notes </span><span class="s2">= (</span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">getNotes</span><span class="s2">() == </span><span
+            class="s0">null</span><span class="s2">) ? </span><span class="s4">&quot;&quot; </span><span
+            class="s2">: </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getNotes</span><span
+            class="s2">().</span><span class="s1">toLowerCase</span><span class="s2">();</span>
+            <span class="s1">String date </span><span class="s2">= (</span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">getDate</span><span class="s2">() == </span><span class="s0">null</span><span
+            class="s2">) ? </span><span class="s4">&quot;&quot; </span><span class="s2">: </span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getDate</span><span class="s2">().</span><span
+            class="s1">toString</span><span class="s2">();</span>
+            <span class="s1">String type </span><span class="s2">= </span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">isInterval</span><span class="s2">() ? </span><span class="s4">&quot;interval&quot; </span><span
+            class="s2">: </span><span class="s4">&quot;non-interval&quot;</span><span class="s2">;</span>
 
             <span class="s3">// allow numeric search for distance or watts</span>
-            <span class="s0">boolean </span><span class="s1">numericMatch </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s0">boolean </span><span class="s1">numericMatch </span><span class="s2">= </span><span
+            class="s0">false</span><span class="s2">;</span>
             <span class="s0">try </span><span class="s2">{</span>
-                <span class="s0">int </span><span class="s1">n </span><span class="s2">= </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">q</span><span class="s2">);</span>
-                <span class="s1">numericMatch </span><span class="s2">= (</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s1">n</span><span class="s2">) || ((</span><span class="s0">int</span><span class="s2">)</span><span class="s1">Math</span><span class="s2">.</span><span class="s1">round</span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getWatts</span><span class="s2">()) == </span><span class="s1">n</span><span class="s2">);</span>
-            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">NumberFormatException ignored</span><span class="s2">) {}</span>
+                <span class="s0">int </span><span class="s1">n </span><span class="s2">= </span><span
+            class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span
+            class="s2">(</span><span class="s1">q</span><span class="s2">);</span>
+                <span class="s1">numericMatch </span><span class="s2">= (</span><span class="s1">w</span><span
+            class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">() == </span><span
+            class="s1">n</span><span class="s2">) || ((</span><span class="s0">int</span><span class="s2">)</span><span
+            class="s1">Math</span><span class="s2">.</span><span class="s1">round</span><span class="s2">(</span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getWatts</span><span
+            class="s2">()) == </span><span class="s1">n</span><span class="s2">);</span>
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">NumberFormatException ignored</span><span
+            class="s2">) {}</span>
 
-            <span class="s0">return </span><span class="s1">notes</span><span class="s2">.</span><span class="s1">contains</span><span class="s2">(</span><span class="s1">q</span><span class="s2">) || </span><span class="s1">date</span><span class="s2">.</span><span class="s1">contains</span><span class="s2">(</span><span class="s1">q</span><span class="s2">) || </span><span class="s1">type</span><span class="s2">.</span><span class="s1">contains</span><span class="s2">(</span><span class="s1">q</span><span class="s2">) || </span><span class="s1">numericMatch</span><span class="s2">;</span>
-        <span class="s2">}).</span><span class="s1">collect</span><span class="s2">(</span><span class="s1">Collectors</span><span class="s2">.</span><span class="s1">toList</span><span class="s2">());</span>
+            <span class="s0">return </span><span class="s1">notes</span><span class="s2">.</span><span class="s1">contains</span><span
+            class="s2">(</span><span class="s1">q</span><span class="s2">) || </span><span class="s1">date</span><span
+            class="s2">.</span><span class="s1">contains</span><span class="s2">(</span><span class="s1">q</span><span
+            class="s2">) || </span><span class="s1">type</span><span class="s2">.</span><span class="s1">contains</span><span
+            class="s2">(</span><span class="s1">q</span><span class="s2">) || </span><span
+            class="s1">numericMatch</span><span class="s2">;</span>
+        <span class="s2">}).</span><span class="s1">collect</span><span class="s2">(</span><span
+            class="s1">Collectors</span><span class="s2">.</span><span class="s1">toList</span><span
+            class="s2">());</span>
     <span class="s2">}</span>
 
-    <span class="s0">private void </span><span class="s1">sort</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span class="s2">&gt; </span><span class="s1">list</span><span class="s2">, </span><span class="s1">String sortKey</span><span class="s2">) {</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">sortKey </span><span class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span class="s1">sortKey </span><span class="s2">= </span><span class="s4">&quot;&quot;</span><span class="s2">;</span>
+    <span class="s0">private void </span><span class="s1">sort</span><span class="s2">(</span><span
+            class="s1">List</span><span class="s2">&lt;</span><span class="s1">Workout</span><span
+            class="s2">&gt; </span><span class="s1">list</span><span class="s2">, </span><span
+            class="s1">String sortKey</span><span class="s2">) {</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">sortKey </span><span
+            class="s2">== </span><span class="s0">null</span><span class="s2">) </span><span
+            class="s1">sortKey </span><span class="s2">= </span><span class="s4">&quot;&quot;</span><span
+            class="s2">;</span>
 
-        <span class="s0">switch </span><span class="s2">(</span><span class="s1">sortKey</span><span class="s2">) {</span>
-            <span class="s0">case </span><span class="s4">&quot;distance&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingInt</span><span class="s2">(</span><span class="s1">Workout::getDistanceMeters</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
-            <span class="s0">case </span><span class="s4">&quot;time&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingInt</span><span class="s2">(</span><span class="s1">Workout::getTimeSeconds</span><span class="s2">)); </span><span class="s3">// lower time = better, but just consistent</span>
-            <span class="s0">case </span><span class="s4">&quot;split&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingDouble</span><span class="s2">(</span><span class="s1">Workout::getSplitSeconds</span><span class="s2">));</span>
-            <span class="s0">case </span><span class="s4">&quot;interval&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::isInterval</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
-            <span class="s0">case </span><span class="s4">&quot;noninterval&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::isInterval</span><span class="s2">)); </span><span class="s3">// false first</span>
-            <span class="s0">case </span><span class="s4">&quot;watts&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingDouble</span><span class="s2">(</span><span class="s1">Workout::getWatts</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
-            <span class="s0">case </span><span class="s4">&quot;oldest&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span class="s2">));</span>
-            <span class="s0">case </span><span class="s4">&quot;newest&quot; </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
-            <span class="s0">default </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
+        <span class="s0">switch </span><span class="s2">(</span><span class="s1">sortKey</span><span
+            class="s2">) {</span>
+            <span class="s0">case </span><span class="s4">&quot;distance&quot; </span><span class="s1">-&gt; list</span><span
+            class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span
+            class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingInt</span><span
+            class="s2">(</span><span class="s1">Workout::getDistanceMeters</span><span class="s2">).</span><span
+            class="s1">reversed</span><span class="s2">());</span>
+            <span class="s0">case </span><span class="s4">&quot;time&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span
+            class="s1">comparingInt</span><span class="s2">(</span><span class="s1">Workout::getTimeSeconds</span><span
+            class="s2">)); </span><span class="s3">// lower time = better, but just consistent</span>
+            <span class="s0">case </span><span class="s4">&quot;split&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingDouble</span><span
+            class="s2">(</span><span class="s1">Workout::getSplitSeconds</span><span class="s2">));</span>
+            <span class="s0">case </span><span class="s4">&quot;interval&quot; </span><span class="s1">-&gt; list</span><span
+            class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span
+            class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparing</span><span
+            class="s2">(</span><span class="s1">Workout::isInterval</span><span class="s2">).</span><span class="s1">reversed</span><span
+            class="s2">());</span>
+            <span class="s0">case </span><span class="s4">&quot;noninterval&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span
+            class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::isInterval</span><span
+            class="s2">)); </span><span class="s3">// false first</span>
+            <span class="s0">case </span><span class="s4">&quot;watts&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span class="s1">comparingDouble</span><span
+            class="s2">(</span><span class="s1">Workout::getWatts</span><span class="s2">).</span><span class="s1">reversed</span><span
+            class="s2">());</span>
+            <span class="s0">case </span><span class="s4">&quot;oldest&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span
+            class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span
+            class="s2">));</span>
+            <span class="s0">case </span><span class="s4">&quot;newest&quot; </span><span
+            class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span
+            class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span
+            class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
+            <span class="s0">default </span><span class="s1">-&gt; list</span><span class="s2">.</span><span class="s1">sort</span><span
+            class="s2">(</span><span class="s1">Comparator</span><span class="s2">.</span><span
+            class="s1">comparing</span><span class="s2">(</span><span class="s1">Workout::getDate</span><span
+            class="s2">).</span><span class="s1">reversed</span><span class="s2">());</span>
         <span class="s2">}</span>
     <span class="s2">}</span>
 
     <span class="s3">//Calculations</span>
 
-    <span class="s0">private void </span><span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span class="s1">Workout w</span><span class="s2">) {</span>
-        <span class="s0">int </span><span class="s1">dist </span><span class="s2">= </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">();</span>
-        <span class="s0">int </span><span class="s1">time </span><span class="s2">= </span><span class="s1">w</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span class="s2">();</span>
+    <span class="s0">private void </span><span class="s1">computeSplitAndWatts</span><span class="s2">(</span><span
+            class="s1">Workout w</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">dist </span><span class="s2">= </span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span
+            class="s2">();</span>
+        <span class="s0">int </span><span class="s1">time </span><span class="s2">= </span><span
+            class="s1">w</span><span class="s2">.</span><span class="s1">getTimeSeconds</span><span
+            class="s2">();</span>
 
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">dist </span><span class="s2">&gt; </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span class="s1">time </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">) {</span>
-            <span class="s0">double </span><span class="s1">split </span><span class="s2">= ((</span><span class="s0">double</span><span class="s2">) </span><span class="s1">time </span><span class="s2">/ </span><span class="s1">dist</span><span class="s2">) * </span><span class="s5">500.0</span><span class="s2">; </span><span class="s3">// sec per 500m</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setSplitSeconds</span><span class="s2">(</span><span class="s1">split</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">dist </span><span
+            class="s2">&gt; </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span
+            class="s1">time </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">) {</span>
+            <span class="s0">double </span><span class="s1">split </span><span class="s2">= ((</span><span class="s0">double</span><span
+            class="s2">) </span><span class="s1">time </span><span class="s2">/ </span><span class="s1">dist</span><span
+            class="s2">) * </span><span class="s5">500.0</span><span class="s2">; </span><span class="s3">// sec per 500m</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setSplitSeconds</span><span
+            class="s2">(</span><span class="s1">split</span><span class="s2">);</span>
 
             <span class="s3">// Concept2: watts = 2.8 / (pace/500)^3 where pace = splitSeconds</span>
-            <span class="s0">double </span><span class="s1">ratio </span><span class="s2">= </span><span class="s1">split </span><span class="s2">/ </span><span class="s5">500.0</span><span class="s2">;</span>
-            <span class="s0">double </span><span class="s1">watts </span><span class="s2">= </span><span class="s5">2.8 </span><span class="s2">/ </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">pow</span><span class="s2">(</span><span class="s1">ratio</span><span class="s2">, </span><span class="s5">3</span><span class="s2">);</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setWatts</span><span class="s2">(</span><span class="s1">watts</span><span class="s2">);</span>
+            <span class="s0">double </span><span class="s1">ratio </span><span class="s2">= </span><span class="s1">split </span><span
+            class="s2">/ </span><span class="s5">500.0</span><span class="s2">;</span>
+            <span class="s0">double </span><span class="s1">watts </span><span class="s2">= </span><span
+            class="s5">2.8 </span><span class="s2">/ </span><span class="s1">Math</span><span class="s2">.</span><span
+            class="s1">pow</span><span class="s2">(</span><span class="s1">ratio</span><span class="s2">, </span><span
+            class="s5">3</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setWatts</span><span
+            class="s2">(</span><span class="s1">watts</span><span class="s2">);</span>
         <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setSplitSeconds</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
-            <span class="s1">w</span><span class="s2">.</span><span class="s1">setWatts</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setSplitSeconds</span><span
+            class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+            <span class="s1">w</span><span class="s2">.</span><span class="s1">setWatts</span><span
+            class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
         <span class="s2">}</span>
     <span class="s2">}</span>
 
-    <span class="s0">private </span><span class="s1">String categoryFor</span><span class="s2">(</span><span class="s1">Workout w</span><span class="s2">) {</span>
+    <span class="s0">private </span><span class="s1">String categoryFor</span><span class="s2">(</span><span class="s1">Workout w</span><span
+            class="s2">) {</span>
         <span class="s3">// PR page categories</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">2000</span><span class="s2">) </span><span class="s0">return </span><span class="s4">&quot;2k&quot;</span><span class="s2">;</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">5000</span><span class="s2">) </span><span class="s0">return </span><span class="s4">&quot;5k&quot;</span><span class="s2">;</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">6000</span><span class="s2">) </span><span class="s0">return </span><span class="s4">&quot;6k&quot;</span><span class="s2">;</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span class="s1">isInterval</span><span class="s2">()) </span><span class="s0">return </span><span class="s4">&quot;Intervals&quot;</span><span class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">2000</span><span
+            class="s2">) </span><span class="s0">return </span><span class="s4">&quot;2k&quot;</span><span
+            class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">5000</span><span
+            class="s2">) </span><span class="s0">return </span><span class="s4">&quot;5k&quot;</span><span
+            class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">getDistanceMeters</span><span class="s2">() == </span><span class="s5">6000</span><span
+            class="s2">) </span><span class="s0">return </span><span class="s4">&quot;6k&quot;</span><span
+            class="s2">;</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">w</span><span class="s2">.</span><span
+            class="s1">isInterval</span><span class="s2">()) </span><span class="s0">return </span><span class="s4">&quot;Intervals&quot;</span><span
+            class="s2">;</span>
         <span class="s0">return </span><span class="s4">&quot;Other&quot;</span><span class="s2">;</span>
     <span class="s2">}</span>
     <span class="s3">//Error catching stuff 12/28</span>
     <span class="s0">private int </span><span class="s1">nextId</span><span class="s2">() {</span>
-        <span class="s0">return </span><span class="s1">workouts</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">().</span><span class="s1">mapToInt</span><span class="s2">(</span><span class="s1">Workout::getId</span><span class="s2">).</span><span class="s1">max</span><span class="s2">().</span><span class="s1">orElse</span><span class="s2">(</span><span class="s5">0</span><span class="s2">) + </span><span class="s5">1</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">workouts</span><span class="s2">.</span><span
+            class="s1">stream</span><span class="s2">().</span><span class="s1">mapToInt</span><span class="s2">(</span><span
+            class="s1">Workout::getId</span><span class="s2">).</span><span class="s1">max</span><span
+            class="s2">().</span><span class="s1">orElse</span><span class="s2">(</span><span class="s5">0</span><span
+            class="s2">) + </span><span class="s5">1</span><span class="s2">;</span>
     <span class="s2">}</span>
 
     <span class="s0">private void </span><span class="s1">persist</span><span class="s2">() {</span>
-        <span class="s1">repo</span><span class="s2">.</span><span class="s1">saveWorkouts</span><span class="s2">(</span><span class="s1">workouts</span><span class="s2">);</span>
-        <span class="s1">repo</span><span class="s2">.</span><span class="s1">saveIntervals</span><span class="s2">(</span><span class="s1">intervals</span><span class="s2">);</span>
+        <span class="s1">repo</span><span class="s2">.</span><span class="s1">saveWorkouts</span><span
+            class="s2">(</span><span class="s1">workouts</span><span class="s2">);</span>
+        <span class="s1">repo</span><span class="s2">.</span><span class="s1">saveIntervals</span><span
+            class="s2">(</span><span class="s1">intervals</span><span class="s2">);</span>
     <span class="s2">}</span>
 
-    <span class="s0">private int </span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">Integer v</span><span class="s2">) { </span><span class="s0">return </span><span class="s1">v </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s5">0 </span><span class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">v</span><span class="s2">); }</span>
+    <span class="s0">private int </span><span class="s1">safeInt</span><span class="s2">(</span><span class="s1">Integer v</span><span
+            class="s2">) { </span><span class="s0">return </span><span class="s1">v </span><span
+            class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s5">0 </span><span
+            class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span
+            class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">v</span><span
+            class="s2">); }</span>
 
-    <span class="s0">private int </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">Integer minutes</span><span class="s2">, </span><span class="s1">Integer seconds</span><span class="s2">) {</span>
-        <span class="s0">int </span><span class="s1">m </span><span class="s2">= (</span><span class="s1">minutes </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s5">0 </span><span class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">minutes</span><span class="s2">));</span>
-        <span class="s0">int </span><span class="s1">s </span><span class="s2">= (</span><span class="s1">seconds </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s5">0 </span><span class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s1">seconds</span><span class="s2">));</span>
-        <span class="s0">if </span><span class="s2">(</span><span class="s1">s </span><span class="s2">&gt;= </span><span class="s5">60</span><span class="s2">) {</span>
-            <span class="s1">m </span><span class="s2">+= </span><span class="s1">s </span><span class="s2">/ </span><span class="s5">60</span><span class="s2">;</span>
-            <span class="s1">s </span><span class="s2">= </span><span class="s1">s </span><span class="s2">% </span><span class="s5">60</span><span class="s2">;</span>
+    <span class="s0">private int </span><span class="s1">toSeconds</span><span class="s2">(</span><span class="s1">Integer minutes</span><span
+            class="s2">, </span><span class="s1">Integer seconds</span><span class="s2">) {</span>
+        <span class="s0">int </span><span class="s1">m </span><span class="s2">= (</span><span
+            class="s1">minutes </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span
+            class="s5">0 </span><span class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span
+            class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span
+            class="s1">minutes</span><span class="s2">));</span>
+        <span class="s0">int </span><span class="s1">s </span><span class="s2">= (</span><span
+            class="s1">seconds </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span
+            class="s5">0 </span><span class="s2">: </span><span class="s1">Math</span><span class="s2">.</span><span
+            class="s1">max</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span
+            class="s1">seconds</span><span class="s2">));</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">s </span><span
+            class="s2">&gt;= </span><span class="s5">60</span><span class="s2">) {</span>
+            <span class="s1">m </span><span class="s2">+= </span><span class="s1">s </span><span
+            class="s2">/ </span><span class="s5">60</span><span class="s2">;</span>
+            <span class="s1">s </span><span class="s2">= </span><span class="s1">s </span><span
+            class="s2">% </span><span class="s5">60</span><span class="s2">;</span>
         <span class="s2">}</span>
-        <span class="s0">return </span><span class="s1">m </span><span class="s2">* </span><span class="s5">60 </span><span class="s2">+ </span><span class="s1">s</span><span class="s2">;</span>
+        <span class="s0">return </span><span class="s1">m </span><span class="s2">* </span><span
+            class="s5">60 </span><span class="s2">+ </span><span class="s1">s</span><span class="s2">;</span>
     <span class="s2">}</span>
 <span class="s2">}</span>
 </pre>

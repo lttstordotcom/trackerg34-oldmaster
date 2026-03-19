@@ -1,25 +1,35 @@
 <html>
 <head>
-<title>WorkoutForm.java</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.s0 { color: #cf8e6d;}
-.s1 { color: #bcbec4;}
-.s2 { color: #bcbec4;}
-.s3 { color: #7a7e85;}
-</style>
+    <title>WorkoutForm.java</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <style type="text/css">
+        .s0 { color: #cf8e6d;}
+        .s1 { color: #bcbec4;}
+        .s2 { color: #bcbec4;}
+        .s3 { color: #7a7e85;}
+    </style>
 </head>
 <body bgcolor="#191a1c">
-<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
-<tr><td><center>
-<font face="Arial, Helvetica" color="#000000">
-WorkoutForm.java</font>
-</center></td></tr></table>
-<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">;</span>
+<table BGCOLOR="#606060" CELLPADDING=5 CELLSPACING=0 COLS=1 WIDTH="100%">
+    <tr>
+        <td>
+            <center>
+                <font color="#000000" face="Arial, Helvetica">
+                    WorkoutForm.java</font>
+            </center>
+        </td>
+    </tr>
+</table>
+<pre><span class="s0">package </span><span class="s1">com</span><span class="s2">.</span><span class="s1">example</span><span
+        class="s2">.</span><span class="s1">trackerg</span><span class="s2">.</span><span class="s1">dto</span><span
+        class="s2">;</span>
 
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
-<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">time</span><span
+            class="s2">.</span><span class="s1">LocalDate</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span
+            class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
 
 <span class="s0">public class </span><span class="s1">WorkoutForm </span><span class="s2">{</span>
     <span class="s0">private </span><span class="s1">Integer id</span><span class="s2">; </span><span class="s3">// null for new</span>
@@ -37,37 +47,76 @@ WorkoutForm.java</font>
     <span class="s0">private </span><span class="s1">String notes</span><span class="s2">;</span>
 
     <span class="s3">// Interval rows</span>
-    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">intervals </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span
+            class="s2">&gt; </span><span class="s1">intervals </span><span class="s2">= </span><span
+            class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
 
-    <span class="s0">public </span><span class="s1">Integer getId</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">id</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s1">Integer id</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Integer getId</span><span class="s2">() { </span><span class="s0">return </span><span
+            class="s1">id</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s1">Integer id</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span
+            class="s2">= </span><span class="s1">id</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">LocalDate getDate</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">date</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">LocalDate date</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">date </span><span class="s2">= </span><span class="s1">date</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">LocalDate getDate</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">date</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setDate</span><span class="s2">(</span><span class="s1">LocalDate date</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">date </span><span class="s2">= </span><span class="s1">date</span><span class="s2">; }</span>
 
-    <span class="s0">public boolean </span><span class="s1">isInterval</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">interval</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setInterval</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">interval</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">interval </span><span class="s2">= </span><span class="s1">interval</span><span class="s2">; }</span>
+    <span class="s0">public boolean </span><span class="s1">isInterval</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">interval</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setInterval</span><span class="s2">(</span><span class="s0">boolean </span><span
+            class="s1">interval</span><span class="s2">) { </span><span class="s0">this</span><span
+            class="s2">.</span><span class="s1">interval </span><span class="s2">= </span><span
+            class="s1">interval</span><span class="s2">; }</span>
 
-    <span class="s0">public boolean </span><span class="s1">isFavorite</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">favorite</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setFavorite</span><span class="s2">(</span><span class="s0">boolean </span><span class="s1">favorite</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">favorite </span><span class="s2">= </span><span class="s1">favorite</span><span class="s2">; }</span>
+    <span class="s0">public boolean </span><span class="s1">isFavorite</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">favorite</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setFavorite</span><span class="s2">(</span><span class="s0">boolean </span><span
+            class="s1">favorite</span><span class="s2">) { </span><span class="s0">this</span><span
+            class="s2">.</span><span class="s1">favorite </span><span class="s2">= </span><span
+            class="s1">favorite</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">Integer getTimeMinutes</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">timeMinutes</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setTimeMinutes</span><span class="s2">(</span><span class="s1">Integer timeMinutes</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">timeMinutes </span><span class="s2">= </span><span class="s1">timeMinutes</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Integer getTimeMinutes</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">timeMinutes</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setTimeMinutes</span><span class="s2">(</span><span class="s1">Integer timeMinutes</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">timeMinutes </span><span class="s2">= </span><span class="s1">timeMinutes</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">Integer getTimeSeconds</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">timeSeconds</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">Integer timeSeconds</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">timeSeconds </span><span class="s2">= </span><span class="s1">timeSeconds</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Integer getTimeSeconds</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">timeSeconds</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setTimeSeconds</span><span class="s2">(</span><span class="s1">Integer timeSeconds</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">timeSeconds </span><span class="s2">= </span><span class="s1">timeSeconds</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">Integer getDistanceMeters</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">distanceMeters</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span class="s1">Integer distanceMeters</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">distanceMeters </span><span class="s2">= </span><span class="s1">distanceMeters</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Integer getDistanceMeters</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">distanceMeters</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setDistanceMeters</span><span class="s2">(</span><span
+            class="s1">Integer distanceMeters</span><span class="s2">) { </span><span class="s0">this</span><span
+            class="s2">.</span><span class="s1">distanceMeters </span><span class="s2">= </span><span class="s1">distanceMeters</span><span
+            class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">Integer getStrokeRate</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">strokeRate</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setStrokeRate</span><span class="s2">(</span><span class="s1">Integer strokeRate</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">strokeRate </span><span class="s2">= </span><span class="s1">strokeRate</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">Integer getStrokeRate</span><span class="s2">() { </span><span
+            class="s0">return </span><span class="s1">strokeRate</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setStrokeRate</span><span class="s2">(</span><span class="s1">Integer strokeRate</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">strokeRate </span><span class="s2">= </span><span class="s1">strokeRate</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">String getNotes</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">notes</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setNotes</span><span class="s2">(</span><span class="s1">String notes</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">notes </span><span class="s2">= </span><span class="s1">notes</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">String getNotes</span><span class="s2">() { </span><span class="s0">return </span><span
+            class="s1">notes</span><span class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setNotes</span><span class="s2">(</span><span class="s1">String notes</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">notes </span><span class="s2">= </span><span class="s1">notes</span><span class="s2">; }</span>
 
-    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">getIntervals</span><span class="s2">() { </span><span class="s0">return </span><span class="s1">intervals</span><span class="s2">; }</span>
-    <span class="s0">public void </span><span class="s1">setIntervals</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">intervals</span><span class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span class="s1">intervals </span><span class="s2">= </span><span class="s1">intervals</span><span class="s2">; }</span>
+    <span class="s0">public </span><span class="s1">List</span><span class="s2">&lt;</span><span
+            class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">getIntervals</span><span
+            class="s2">() { </span><span class="s0">return </span><span class="s1">intervals</span><span
+            class="s2">; }</span>
+    <span class="s0">public void </span><span class="s1">setIntervals</span><span class="s2">(</span><span class="s1">List</span><span
+            class="s2">&lt;</span><span class="s1">IntervalForm</span><span class="s2">&gt; </span><span class="s1">intervals</span><span
+            class="s2">) { </span><span class="s0">this</span><span class="s2">.</span><span
+            class="s1">intervals </span><span class="s2">= </span><span class="s1">intervals</span><span
+            class="s2">; }</span>
 <span class="s2">}</span>
 </pre>
 </body>
