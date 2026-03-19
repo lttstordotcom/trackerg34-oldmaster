@@ -272,7 +272,7 @@
             <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${w.date}&quot;</span><span
             class="s0">&gt;</span><span class="s1">2026-01-01</span><span class="s0">&lt;/td&gt;</span>
 
-            <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=&quot;${w.splitSeconds &gt; 0 ? (w.splitSeconds/60) + ':' + (#numbers.formatInteger(w.splitSeconds%60,2)) : ''}&quot;</span><span
+            <span class="s0">&lt;td </span><span class="s2">th:text</span><span class="s3">=<td th:text="${w.formattedSplit}"></td>
                 <span class="s2">class</span><span class="s3">=&quot;muted&quot;</span><span
             class="s0">&gt;&lt;/td&gt;</span>
 
