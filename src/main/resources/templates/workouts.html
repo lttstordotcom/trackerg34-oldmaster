@@ -93,9 +93,8 @@
         <tr th:each="w : ${workouts}">
             <td th:text="${w.date}">2026-01-01</td>
 
-            <td class="muted"
-                th:text="${w.splitSeconds > 0 ? #numbers.formatDecimal(w.splitSeconds,0,1) : ''}"></td>
-
+            <td th:text="${w.formattedSplit}"></td>
+            
             <td th:text="${w.distanceMeters > 0 ? w.distanceMeters : ''}"></td>
 
             <td th:text="${w.timeSeconds > 0 ? (w.timeSeconds/60) + ':' + (#numbers.formatInteger(w.timeSeconds%60,2)) : ''}"></td>
