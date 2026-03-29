@@ -70,7 +70,7 @@ public class WorkoutController {
         form.setTimeMinutes(total / 60);
         form.setTimeSeconds(total % 60);
 
-        // If interval workout show existing interval rows (ELIOT REMEMBER THIS IS JS IF YOU MESS WITH IT GOOGLE STUFF FIRST BECAUSE YOU HAVE NO IDEA HOW TO RIGHT JS)
+        // If interval workout show existing interval rows
         model.addAttribute("intervalData", intervalRows);
         model.addAttribute("form", form);
         model.addAttribute("mode", "edit");
