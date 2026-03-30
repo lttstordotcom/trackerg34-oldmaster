@@ -19,12 +19,17 @@ public class WorkoutFileRepository {
     private void ensureFilesExist() {
         try {
             if (!Files.exists(Path.of(WORKOUTS_FILE))) {
-                Files.writeString(Path.of(WORKOUTS_FILE),
-                        "id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes\n");
+                Files.writeString(
+                        Path.of(WORKOUTS_FILE),
+                        "id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes\n"
+                );
             }
+
             if (!Files.exists(Path.of(INTERVALS_FILE))) {
-                Files.writeString(Path.of(INTERVALS_FILE),
-                        "workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds\n");
+                Files.writeString(
+                        Path.of(INTERVALS_FILE),
+                        "workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds\n"
+                );
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to create data files", e);
@@ -32,48 +37,54 @@ public class WorkoutFileRepository {
     }
 
     public List<Workout> loadWorkouts() {
-        List<Workout> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(WORKOUTS_FILE))) {
-            String line = br.readLine(); // header
-            while ((line = br.readLine()) != null) {
-                String[] p = line.split(",", -1);
-                Workout w = new Workout();
-                w.setId(Integer.parseInt(p[0]));
-                w.setDate(LocalDate.parse(p[1]));
-                w.setInterval(Boolean.parseBoolean(p[2]));
-                w.setFavorite(Boolean.parseBoolean(p[3]));
-                w.setDistanceMeters(Integer.parseInt(p[4]));
-                w.setTimeSeconds(Integer.parseInt(p[5]));
-                w.setSplitSeconds(Double.parseDouble(p[6]));
-                w.setWatts(Double.parseDouble(p[7]));
-                w.setStrokeRate(Integer.parseInt(p[8]));
-                w.setNotes(unescape(p[9]));
-                list.add(w);
+        List<Workout> workouts = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(WORKOUTS_FILE))) {
+            String line = reader.readLine(); // Skip header
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",", -1);
+
+                Workout workout = new Workout();
+                workout.setId(Integer.parseInt(parts[0]));
+                workout.setDate(LocalDate.parse(parts[1]));
+                workout.setInterval(Boolean.parseBoolean(parts[2]));
+                workout.setFavorite(Boolean.parseBoolean(parts[3]));
+                workout.setDistanceMeters(Integer.parseInt(parts[4]));
+                workout.setTimeSeconds(Integer.parseInt(parts[5]));
+                workout.setSplitSeconds(Double.parseDouble(parts[6]));
+                workout.setWatts(Double.parseDouble(parts[7]));
+                workout.setStrokeRate(Integer.parseInt(parts[8]));
+                workout.setNotes(unescape(parts[9]));
+
+                workouts.add(workout);
             }
         } catch (FileNotFoundException e) {
-            return list;
+            return workouts;
         } catch (IOException e) {
             throw new RuntimeException("Failed reading workouts.csv", e);
         }
-        return list;
+
+        return workouts;
     }
 
     public void saveWorkouts(List<Workout> workouts) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(WORKOUTS_FILE))) {
-            pw.println("id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes");
-            for (Workout w : workouts) {
-                pw.printf(
+        try (PrintWriter writer = new PrintWriter(new FileWriter(WORKOUTS_FILE))) {
+            writer.println("id,date,interval,favorite,distanceMeters,timeSeconds,splitSeconds,watts,strokeRate,notes");
+
+            for (Workout workout : workouts) {
+                writer.printf(
                         "%d,%s,%b,%b,%d,%d,%.2f,%.2f,%d,%s%n",
-                        w.getId(),
-                        w.getDate(),
-                        w.isInterval(),
-                        w.isFavorite(),
-                        w.getDistanceMeters(),
-                        w.getTimeSeconds(),
-                        w.getSplitSeconds(),
-                        w.getWatts(),
-                        w.getStrokeRate(),
-                        escape(w.getNotes())
+                        workout.getId(),
+                        workout.getDate(),
+                        workout.isInterval(),
+                        workout.isFavorite(),
+                        workout.getDistanceMeters(),
+                        workout.getTimeSeconds(),
+                        workout.getSplitSeconds(),
+                        workout.getWatts(),
+                        workout.getStrokeRate(),
+                        escape(workout.getNotes())
                 );
             }
         } catch (IOException e) {
@@ -82,38 +93,44 @@ public class WorkoutFileRepository {
     }
 
     public List<Interval> loadIntervals() {
-        List<Interval> list = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(INTERVALS_FILE))) {
-            String line = br.readLine(); // header
-            while ((line = br.readLine()) != null) {
-                String[] p = line.split(",", -1);
-                Interval it = new Interval();
-                it.setWorkoutId(Integer.parseInt(p[0]));
-                it.setIndex(Integer.parseInt(p[1]));
-                it.setWorkDistanceMeters(Integer.parseInt(p[2]));
-                it.setWorkTimeSeconds(Integer.parseInt(p[3]));
-                it.setRestTimeSeconds(Integer.parseInt(p[4]));
-                list.add(it);
+        List<Interval> intervals = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(INTERVALS_FILE))) {
+            String line = reader.readLine(); // Skip header
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",", -1);
+
+                Interval interval = new Interval();
+                interval.setWorkoutId(Integer.parseInt(parts[0]));
+                interval.setIndex(Integer.parseInt(parts[1]));
+                interval.setWorkDistanceMeters(Integer.parseInt(parts[2]));
+                interval.setWorkTimeSeconds(Integer.parseInt(parts[3]));
+                interval.setRestTimeSeconds(Integer.parseInt(parts[4]));
+
+                intervals.add(interval);
             }
         } catch (FileNotFoundException e) {
-            return list;
+            return intervals;
         } catch (IOException e) {
             throw new RuntimeException("Failed reading intervals.csv", e);
         }
-        return list;
+
+        return intervals;
     }
 
     public void saveIntervals(List<Interval> intervals) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(INTERVALS_FILE))) {
-            pw.println("workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds");
-            for (Interval it : intervals) {
-                pw.printf(
+        try (PrintWriter writer = new PrintWriter(new FileWriter(INTERVALS_FILE))) {
+            writer.println("workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds");
+
+            for (Interval interval : intervals) {
+                writer.printf(
                         "%d,%d,%d,%d,%d%n",
-                        it.getWorkoutId(),
-                        it.getIndex(),
-                        it.getWorkDistanceMeters(),
-                        it.getWorkTimeSeconds(),
-                        it.getRestTimeSeconds()
+                        interval.getWorkoutId(),
+                        interval.getIndex(),
+                        interval.getWorkDistanceMeters(),
+                        interval.getWorkTimeSeconds(),
+                        interval.getRestTimeSeconds()
                 );
             }
         } catch (IOException e) {
@@ -121,14 +138,20 @@ public class WorkoutFileRepository {
         }
     }
 
-    private String escape(String s) {
-        if (s == null) return "";
-        // Replace commas so CSV stays safe
-        return s.replace("\n", "\\n").replace(",", ";");
+    private String escape(String value) {
+        if (value == null) {
+            return "";
+        }
+
+        // Keep notes safe for CSV storage.
+        return value.replace("\n", "\\n").replace(",", ";");
     }
 
-    private String unescape(String s) {
-        if (s == null) return "";
-        return s.replace("\\n", "\n").replace(";", ",");
+    private String unescape(String value) {
+        if (value == null) {
+            return "";
+        }
+
+        return value.replace("\\n", "\n").replace(";", ",");
     }
 }
