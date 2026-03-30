@@ -92,7 +92,7 @@
             <td th:text="${entry.value.date}"></td>
             <td th:text="${entry.value.distanceMeters}"></td>
             <td th:text="${entry.value.timeSeconds > 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}"></td>
-            <td th:text="${entry.value.splitSeconds > 0 ? #numbers.formatDecimal(entry.value.splitSeconds,0,1) : ''}"></td>
+            <td th:text="${entry.value.formattedSplit}"></td>
             <td th:text="${entry.value.watts > 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}"></td>
             <td th:text="${entry.value.interval ? 'Yes' : 'No'}"></td>
             <td th:text="${entry.value.favorite ? '★' : ''}"></td>
