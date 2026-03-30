@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>TrackErg - Workouts</title>
+    <title>TrackErg - PRs</title>
     <style>
         :root {
             --border: #222;
-            --muted: #666;
-            --bg: #fff;
             --soft: #f5f5f5;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background: var(--bg);
             margin: 0;
         }
 
@@ -26,7 +23,6 @@
 
         .tabs {
             display: flex;
-            gap: 0;
         }
 
         .tab {
@@ -42,41 +38,7 @@
         }
 
         .content {
-            padding: 12px;
-        }
-
-        .row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1 1 320px;
-        }
-
-        .search input {
-            width: 100%;
-            max-width: 520px;
-            padding: 8px 10px;
-            border: 2px solid var(--border);
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        select {
-            padding: 8px 10px;
-            border: 2px solid var(--border);
-            background: #fff;
+            padding: 14px;
         }
 
         table {
@@ -90,53 +52,10 @@
             border: 2px solid var(--border);
             padding: 8px;
             text-align: left;
-            font-size: 14px;
         }
 
         th {
             background: var(--soft);
-        }
-
-        .star-col {
-            font-weight: 1200;
-            text-align: center;
-            color: gold;
-        }
-
-        .btn {
-            border: 2px solid var(--border);
-            padding: 6px 10px;
-            background: #fff;
-            cursor: pointer;
-            text-decoration: none;
-            color: #000;
-        }
-
-        .btn.primary {
-            font-weight: 700;
-        }
-
-        .nowrap {
-            white-space: nowrap;
-        }
-
-        th.actions-col {
-            display: none;
-        }
-
-        td.actions {
-            border: none;
-        }
-
-        @media (max-width: 720px) {
-            th,
-            td {
-                font-size: 12px;
-            }
-
-            .nowrap {
-                white-space: normal;
-            }
         }
     </style>
 </head>
@@ -144,74 +63,40 @@
 
 <div class="topbar">
     <div class="tabs">
-        <a class="tab active" href="/workouts">View Workouts</a>
+        <a class="tab" href="/workouts">View Workouts</a>
         <a class="tab" href="/workouts/new">Add Workout</a>
-        <a class="tab" href="/prs">View PR</a>
+        <a class="tab active" href="/prs">View PR</a>
     </div>
 </div>
 
 <div class="content">
-    <div class="row">
-        <form action="/workouts" class="search" method="get">
-            <span aria-hidden="true">🔎</span>
-            <input name="query" placeholder="Search" th:value="${query}" type="text"/>
-            <input name="sort" th:value="${sort}" type="hidden"/>
-            <button class="btn" type="submit">Go</button>
-        </form>
-
-        <div class="controls">
-            <form action="/workouts" method="get">
-                <input name="query" th:value="${query}" type="hidden"/>
-                <label class="nowrap">
-                    Sort by
-                    <select name="sort" onchange="this.form.submit()">
-                        <option th:selected="${sort==''}" value="">—</option>
-                        <option th:selected="${sort=='distance'}" value="distance">Distance</option>
-                        <option th:selected="${sort=='time'}" value="time">Time</option>
-                        <option th:selected="${sort=='split'}" value="split">Split</option>
-                        <option th:selected="${sort=='interval'}" value="interval">Interval</option>
-                        <option th:selected="${sort=='noninterval'}" value="noninterval">Non-Interval</option>
-                        <option th:selected="${sort=='watts'}" value="watts">Watts</option>
-                        <option th:selected="${sort=='oldest'}" value="oldest">Oldest</option>
-                        <option th:selected="${sort=='newest'}" value="newest">Newest</option>
-                    </select>
-                </label>
-            </form>
-
-            <a class="btn primary" href="/workouts/new">Add Workout +</a>
-        </div>
-    </div>
+    <h2>Best PRs (by watts)</h2>
 
     <table>
         <thead>
         <tr>
+            <th>Category</th>
             <th>Date</th>
-            <th>Split</th>
             <th>Distance</th>
             <th>Total time</th>
+            <th>Split</th>
             <th>Watts</th>
             <th>Intervals</th>
+            <th>★</th>
             <th>Notes</th>
-            <th class="star-col">★</th>
-            <th class="actions-col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="workout : ${workouts}">
-            <td th:text="${workout.date}">2026-01-01</td>
-            <td th:text="${workout.formattedSplit}"></td>
-            <td th:text="${workout.distanceMeters > 0 ? workout.distanceMeters : ''}"></td>
-            <td th:text="${workout.timeSeconds > 0 ? (workout.timeSeconds/60) + ':' + (#numbers.formatInteger(workout.timeSeconds%60,2)) : ''}"></td>
-            <td th:text="${workout.watts > 0 ? #numbers.formatDecimal(workout.watts,0,0) : ''}"></td>
-            <td th:text="${workout.interval ? 'Yes' : 'No'}"></td>
-            <td th:text="${workout.notes}"></td>
-            <td class="nowrap star-col" th:text="${workout.favorite ? '★' : ''}"></td>
-            <td class="actions nowrap">
-                <a class="btn" th:href="@{'/workouts/edit/' + ${workout.id}}">Edit</a>
-                <a class="btn"
-                   onclick="return confirm('Delete this workout?');"
-                   th:href="@{'/workouts/delete/' + ${workout.id}}">Delete</a>
-            </td>
+        <tr th:each="entry : ${best}">
+            <td th:text="${entry.key}">2k</td>
+            <td th:text="${entry.value.date}"></td>
+            <td th:text="${entry.value.distanceMeters}"></td>
+            <td th:text="${entry.value.timeSeconds > 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}"></td>
+            <td th:text="${entry.value.formattedSplit}"></td>
+            <td th:text="${entry.value.watts > 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}"></td>
+            <td th:text="${entry.value.interval ? 'Yes' : 'No'}"></td>
+            <td th:text="${entry.value.favorite ? '★' : ''}"></td>
+            <td th:text="${entry.value.notes}"></td>
         </tr>
         </tbody>
     </table>
