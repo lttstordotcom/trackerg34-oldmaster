@@ -10,6 +10,8 @@ public class IntervalForm {
     private Integer restMinutes;
     private Integer restSeconds;
 
+    private Integer strokeRate;
+
     public Integer getWorkDistanceMeters() {
         return workDistanceMeters;
     }
@@ -48,5 +50,13 @@ public class IntervalForm {
 
     public void setRestSeconds(Integer restSeconds) {
         this.restSeconds = restSeconds;
+    }
+
+    public Integer getStrokeRate() {
+        return strokeRate;
+    }
+
+    public void setStrokeRate(Integer strokeRate) {
+        this.strokeRate = strokeRate;
     }
 }
