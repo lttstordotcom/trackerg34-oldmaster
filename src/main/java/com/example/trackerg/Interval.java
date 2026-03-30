@@ -1,12 +1,13 @@
 package com.example.trackerg;
 
 public class Interval {
+
     private int workoutId;
     private int index;
 
-    private int workDistanceMeters; // 0 if time-based
-    private int workTimeSeconds;    // 0 if distance-based
-    private int restTimeSeconds;    // rest after this interval
+    private int workDistanceMeters;
+    private int workTimeSeconds;
+    private int restTimeSeconds;
 
     public Interval() {
     }
