@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,28 +21,28 @@ public class WorkoutController {
     public String home() {
         return "redirect:/workouts";
     }
-	@GetMapping("/workouts")
-	public String workouts(
-    		@RequestParam(value = "query", required = false) String query,
-        	@RequestParam(value = "sort", required = false) String sort,
-        	Model model
-	) {
-    List<Workout> workoutList = service.listWorkouts(query, sort);
 
-    Map<Integer, List<Interval>> intervalsByWorkout = new HashMap<>();
-    for (Workout workout : workoutList) {
-        if (workout.isInterval()) {
-            intervalsByWorkout.put(workout.getId(), service.getIntervalsForWorkout(workout.getId()));
+    @GetMapping("/workouts")
+    public String workouts(
+            @RequestParam(value = "query", required = false) String query,
+            @RequestParam(value = "sort", required = false) String sort,
+            Model model
+    ) {
+        List<Workout> workoutList = service.listWorkouts(query, sort);
+
+        Map<Integer, List<Interval>> intervalsByWorkout = new HashMap<>();
+        for (Workout workout : workoutList) {
+            if (workout.isInterval()) {
+                intervalsByWorkout.put(workout.getId(), service.getIntervalsForWorkout(workout.getId()));
+            }
         }
+
+        model.addAttribute("workouts", workoutList);
+        model.addAttribute("intervalsByWorkout", intervalsByWorkout);
+        model.addAttribute("query", query == null ? "" : query);
+        model.addAttribute("sort", sort == null ? "" : sort);
+        return "workouts";
     }
-
-    	model.addAttribute("workouts", workoutList);
-    	model.addAttribute("intervalsByWorkout", intervalsByWorkout);
-    	model.addAttribute("query", query == null ? "" : query);
-    	model.addAttribute("sort", sort == null ? "" : sort);
-
-    	return "workouts";
-	}
 
     @GetMapping("/workouts/new")
     public String newWorkout(Model model) {
@@ -71,12 +72,23 @@ public class WorkoutController {
         form.setStrokeRate(workout.getStrokeRate());
         form.setNotes(workout.getNotes());
 
-        // Rebuild total time into minutes and seconds for the form.
         int totalTime = workout.getTimeSeconds();
         form.setTimeMinutes(totalTime / 60);
         form.setTimeSeconds(totalTime % 60);
 
-        // Pass saved interval rows back to the form when editing.
+        if (workout.isInterval()) {
+            for (Interval interval : intervalRows) {
+                IntervalForm intervalForm = new IntervalForm();
+                intervalForm.setWorkDistanceMeters(interval.getWorkDistanceMeters());
+                intervalForm.setWorkMinutes(interval.getWorkTimeSeconds() / 60);
+                intervalForm.setWorkSeconds(interval.getWorkTimeSeconds() % 60);
+                intervalForm.setRestMinutes(interval.getRestTimeSeconds() / 60);
+                intervalForm.setRestSeconds(interval.getRestTimeSeconds() % 60);
+                intervalForm.setStrokeRate(interval.getStrokeRate());
+                form.getIntervals().add(intervalForm);
+            }
+        }
+
         model.addAttribute("intervalData", intervalRows);
         model.addAttribute("form", form);
         model.addAttribute("mode", "edit");
