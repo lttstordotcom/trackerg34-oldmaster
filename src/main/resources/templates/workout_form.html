@@ -44,8 +44,8 @@
         }
 
         .left {
-            flex: 1 1 420px;
-            max-width: 520px;
+            flex: 1 1 700px;
+            max-width: 900px;
         }
 
         .right {
@@ -66,6 +66,7 @@
             width: 100%;
             padding: 8px;
             border: 2px solid var(--border);
+            box-sizing: border-box;
         }
 
         textarea {
@@ -105,24 +106,34 @@
             cursor: pointer;
         }
 
+        .normalFields {
+            margin-top: 10px;
+        }
+
         .intervals {
             margin-top: 10px;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid var(--border);
             display: none;
         }
 
         .intervalRow {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr auto;
-            gap: 8px;
+            grid-template-columns: 1.2fr 1.5fr 1.5fr 1fr auto;
+            gap: 10px;
             align-items: end;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .hint {
             font-size: 12px;
             opacity: 0.8;
+        }
+
+        @media (max-width: 1100px) {
+            .intervalRow {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 900px) {
@@ -132,6 +143,10 @@
 
             .right {
                 justify-content: flex-start;
+            }
+
+            .intervalRow {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -164,17 +179,19 @@
                 <input id="intervalToggle" th:field="*{interval}" type="checkbox"/>
             </div>
 
-            <label>Time to complete</label>
-            <div class="inline">
-                <input class="small" min="0" placeholder="min" th:field="*{timeMinutes}" type="number"/>
-                <input class="small" min="0" placeholder="sec" th:field="*{timeSeconds}" type="number"/>
+            <div class="normalFields" id="normalFields">
+                <label>Time to complete</label>
+                <div class="inline">
+                    <input class="small" min="0" placeholder="min" th:field="*{timeMinutes}" type="number"/>
+                    <input class="small" min="0" placeholder="sec" th:field="*{timeSeconds}" type="number"/>
+                </div>
+
+                <label>Distance</label>
+                <input min="0" placeholder="meters" th:field="*{distanceMeters}" type="number"/>
+
+                <label>Stroke rate</label>
+                <input min="0" placeholder="spm" th:field="*{strokeRate}" type="number"/>
             </div>
-
-            <label>Distance</label>
-            <input min="0" placeholder="meters" th:field="*{distanceMeters}" type="number"/>
-
-            <label>Stroke rate</label>
-            <input min="0" placeholder="spm" th:field="*{strokeRate}" type="number"/>
 
             <label>Notes</label>
             <textarea th:field="*{notes}"></textarea>
@@ -191,14 +208,17 @@
                     <button class="smallBtn" onclick="addIntervalRow()" type="button">+</button>
                 </div>
 
-                <div class="hint">Fill either work distance or work time. Rest is optional.</div>
+                <div class="hint">Each interval can include work distance or work time, rest time, and stroke rate.</div>
 
                 <div id="intervalRows"></div>
                 <input id="intervalCount" type="hidden" value="0"/>
             </div>
 
             <div style="margin-top:14px;">
-                <button class="bigBtn" type="submit">Add Workout +</button>
+                <button class="bigBtn" type="submit"
+                        th:text="${mode=='edit'} ? 'Save Changes' : 'Add Workout +'">
+                    Add Workout +
+                </button>
             </div>
         </form>
     </div>
@@ -212,8 +232,11 @@
     const intervalData = /*[[${intervalData}]]*/ null;
 
     function showIntervals(show) {
-        const box = document.getElementById('intervalsBox');
-        box.style.display = show ? 'block' : 'none';
+        const intervalBox = document.getElementById('intervalsBox');
+        const normalFields = document.getElementById('normalFields');
+
+        intervalBox.style.display = show ? 'block' : 'none';
+        normalFields.style.display = show ? 'none' : 'block';
     }
 
     function addIntervalRow(prefill) {
@@ -250,6 +273,12 @@
           <input class="small" type="number" min="0" name="intervals[${idx}].restSeconds" placeholder="sec"
                  value="${prefill ? ((prefill.restTimeSeconds || 0) % 60) : ''}">
         </div>
+      </div>
+
+      <div>
+        <label>Stroke rate</label>
+        <input type="number" min="0" name="intervals[${idx}].strokeRate" placeholder="spm"
+               value="${prefill?.strokeRate ?? ''}">
       </div>
 
       <div>
@@ -290,6 +319,8 @@
                     input.name = `intervals[${newIndex}].restMinutes`;
                 } else if (input.name.includes('.restSeconds')) {
                     input.name = `intervals[${newIndex}].restSeconds`;
+                } else if (input.name.includes('.strokeRate')) {
+                    input.name = `intervals[${newIndex}].strokeRate`;
                 }
             });
 
