@@ -3,6 +3,7 @@ package com.example.trackerg;
 import java.time.LocalDate;
 
 public class Workout {
+
     private int id;
     private LocalDate date;
 
@@ -21,7 +22,6 @@ public class Workout {
     public Workout() {
     }
 
-    // gets and sets
     public int getId() {
         return id;
     }
@@ -101,10 +101,14 @@ public class Workout {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-	public String getFormattedSplit() {
-    	if (splitSeconds <= 0) return "";
-    	int minutes = (int) (splitSeconds / 60);
-   		double seconds = splitSeconds % 60;
-   	 	return String.format("%d:%04.1f", minutes, seconds);
-}
+
+    public String getFormattedSplit() {
+        if (splitSeconds <= 0) {
+            return "";
+        }
+
+        int minutes = (int) (splitSeconds / 60);
+        double seconds = splitSeconds % 60;
+        return String.format("%d:%04.1f", minutes, seconds);
+    }
 }
