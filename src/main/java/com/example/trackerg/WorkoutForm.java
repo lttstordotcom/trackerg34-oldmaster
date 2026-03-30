@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutForm {
-    private Integer id; // null for new
+
+    private Integer id;
     private LocalDate date;
 
     private boolean interval;
     private boolean favorite;
 
-    // Non-interval fields
     private Integer timeMinutes;
     private Integer timeSeconds;
 
@@ -19,7 +19,6 @@ public class WorkoutForm {
     private Integer strokeRate;
     private String notes;
 
-    // Interval rows
     private List<IntervalForm> intervals = new ArrayList<>();
 
     public Integer getId() {
