@@ -1,13 +1,12 @@
 package com.example.trackerg;
 
 public class IntervalForm {
-    // either distance OR time
+
     private Integer workDistanceMeters;
 
     private Integer workMinutes;
     private Integer workSeconds;
 
-    // Rest time
     private Integer restMinutes;
     private Integer restSeconds;
 
