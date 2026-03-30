@@ -5,31 +5,138 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>TrackErg - Workouts</title>
     <style>
-        :root { --border:#222; --muted:#666; --bg:#fff; --soft:#f5f5f5; }
-        body { font-family: Arial, sans-serif; background: var(--bg); margin: 0; }
-        .topbar { display:flex; align-items:center; border-bottom:2px solid var(--border); }
-        .tabs { display:flex; gap:0; }
-        .tab { padding:10px 14px; border-right:2px solid var(--border); text-decoration:none; color:#000; }
-        .tab.active { background: var(--soft); font-weight:700; }
-        .content { padding: 12px; }
-        .row { display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-        .search { display:flex; align-items:center; gap:8px; flex: 1 1 320px; }
-        .search input { width:100%; max-width:520px; padding:8px 10px; border:2px solid var(--border); }
-        .controls { display:flex; gap:10px; align-items:center; }
-        select { padding:8px 10px; border:2px solid var(--border); background:#fff; }
-        table { width:100%; border-collapse:collapse; margin-top:10px; }
-        th, td { border:2px solid var(--border); padding:8px; text-align:left; font-size: 14px; }
-        th { background: var(--soft); }
-        .star-col {font-weight:1200; text-align:center; color:gold;}
-        .muted { color:var(--muted); }
-        .btn { border:2px solid var(--border); padding:6px 10px; background:#fff; cursor:pointer; text-decoration:none; color:#000; }
-        .btn.primary { font-weight:700; }
-        .nowrap { white-space:nowrap; }
-        th.actions-col {display:none}
-        td.actions {border: none;}
+        :root {
+            --border: #222;
+            --muted: #666;
+            --bg: #fff;
+            --soft: #f5f5f5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            margin: 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+        }
+
+        .tab {
+            padding: 10px 14px;
+            border-right: 2px solid var(--border);
+            text-decoration: none;
+            color: #000;
+        }
+
+        .tab.active {
+            background: var(--soft);
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 12px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 320px;
+        }
+
+        .search input {
+            width: 100%;
+            max-width: 520px;
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 2px solid var(--border);
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: var(--soft);
+        }
+
+        .star-col {
+            font-weight: 1200;
+            text-align: center;
+            color: gold;
+        }
+
+        .btn {
+            border: 2px solid var(--border);
+            padding: 6px 10px;
+            background: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .btn.primary {
+            font-weight: 700;
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        th.actions-col {
+            display: none;
+        }
+
+        td.actions {
+            border: none;
+        }
+
         @media (max-width: 720px) {
-            th, td { font-size: 12px; }
-            .nowrap { white-space:normal; }
+            th,
+            td {
+                font-size: 12px;
+            }
+
+            .nowrap {
+                white-space: normal;
+            }
         }
     </style>
 </head>
@@ -90,31 +197,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="w : ${workouts}">
-            <td th:text="${w.date}">2026-01-01</td>
-
-            <td th:text="${w.formattedSplit}"></td>
-            
-            <td th:text="${w.distanceMeters > 0 ? w.distanceMeters : ''}"></td>
-
-            <td th:text="${w.timeSeconds > 0 ? (w.timeSeconds/60) + ':' + (#numbers.formatInteger(w.timeSeconds%60,2)) : ''}"></td>
-
-            <td th:text="${w.watts > 0 ? #numbers.formatDecimal(w.watts,0,0) : ''}"></td>
-
-            <td th:text="${w.interval ? 'Yes' : 'No'}"></td>
-
-            <td th:text="${w.notes}"></td>
-            <td class="nowrap star-col" th:text="${w.favorite ? '★' : ''}"></td>
-
+        <tr th:each="workout : ${workouts}">
+            <td th:text="${workout.date}">2026-01-01</td>
+            <td th:text="${workout.formattedSplit}"></td>
+            <td th:text="${workout.distanceMeters > 0 ? workout.distanceMeters : ''}"></td>
+            <td th:text="${workout.timeSeconds > 0 ? (workout.timeSeconds/60) + ':' + (#numbers.formatInteger(workout.timeSeconds%60,2)) : ''}"></td>
+            <td th:text="${workout.watts > 0 ? #numbers.formatDecimal(workout.watts,0,0) : ''}"></td>
+            <td th:text="${workout.interval ? 'Yes' : 'No'}"></td>
+            <td th:text="${workout.notes}"></td>
+            <td class="nowrap star-col" th:text="${workout.favorite ? '★' : ''}"></td>
             <td class="actions nowrap">
-                <a class="btn" th:href="@{'/workouts/edit/' + ${w.id}}">Edit</a>
-                <a class="btn" onclick="return confirm('Delete this workout?');"
-                   th:href="@{'/workouts/delete/' + ${w.id}}">Delete</a>
+                <a class="btn" th:href="@{'/workouts/edit/' + ${workout.id}}">Edit</a>
+                <a class="btn"
+                   onclick="return confirm('Delete this workout?');"
+                   th:href="@{'/workouts/delete/' + ${workout.id}}">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
-
