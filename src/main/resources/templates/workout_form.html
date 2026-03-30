@@ -5,29 +5,134 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>TrackErg - Add Workout</title>
     <style>
-        :root { --border:#222; --soft:#f5f5f5; }
-        body { font-family: Arial, sans-serif; margin:0; }
-        .topbar { display:flex; align-items:center; border-bottom:2px solid var(--border); }
-        .tabs { display:flex; }
-        .tab { padding:10px 14px; border-right:2px solid var(--border); text-decoration:none; color:#000; }
-        .tab.active { background: var(--soft); font-weight:700; }
-        .wrap { padding: 14px; display:flex; gap:16px; }
-        .left { flex: 1 1 420px; max-width: 520px; }
-        .right { flex: 1 1 300px; display:flex; justify-content:center; align-items:flex-start; }
-        label { display:block; margin-top:10px; }
-        input[type="number"], input[type="date"], textarea { width:100%; padding:8px; border:2px solid var(--border); }
-        textarea { min-height: 160px; resize: vertical; }
-        .inline { display:flex; gap:10px; align-items:center; }
-        .inline .small { width:110px; }
-        .starBox { display:flex; align-items:center; gap:10px; margin-top:10px; }
-        .bigBtn { border:2px solid var(--border); padding:14px 22px; font-size: 22px; background:#fff; cursor:pointer; }
-        .smallBtn { border:2px solid var(--border); padding:6px 10px; background:#fff; cursor:pointer; }
-        .intervals { margin-top:10px; padding:10px; border:2px solid var(--border); display:none; }
-        .intervalRow { display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap:8px; align-items:end; margin-top:8px; }
-        .hint { font-size: 12px; opacity: 0.8; }
+        :root {
+            --border: #222;
+            --soft: #f5f5f5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            padding: 10px 14px;
+            border-right: 2px solid var(--border);
+            text-decoration: none;
+            color: #000;
+        }
+
+        .tab.active {
+            background: var(--soft);
+            font-weight: 700;
+        }
+
+        .wrap {
+            padding: 14px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .left {
+            flex: 1 1 420px;
+            max-width: 520px;
+        }
+
+        .right {
+            flex: 1 1 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="number"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid var(--border);
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .inline {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .inline .small {
+            width: 110px;
+        }
+
+        .starBox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .bigBtn {
+            border: 2px solid var(--border);
+            padding: 14px 22px;
+            font-size: 22px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .smallBtn {
+            border: 2px solid var(--border);
+            padding: 6px 10px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .intervals {
+            margin-top: 10px;
+            padding: 10px;
+            border: 2px solid var(--border);
+            display: none;
+        }
+
+        .intervalRow {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 8px;
+            align-items: end;
+            margin-top: 8px;
+        }
+
+        .hint {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
         @media (max-width: 900px) {
-            .wrap { flex-direction:column; }
-            .right { justify-content:flex-start; }
+            .wrap {
+                flex-direction: column;
+            }
+
+            .right {
+                justify-content: flex-start;
+            }
         }
     </style>
 </head>
@@ -59,7 +164,7 @@
                 <input id="intervalToggle" th:field="*{interval}" type="checkbox"/>
             </div>
 
-            <label>time to complete</label>
+            <label>Time to complete</label>
             <div class="inline">
                 <input class="small" min="0" placeholder="min" th:field="*{timeMinutes}" type="number"/>
                 <input class="small" min="0" placeholder="sec" th:field="*{timeSeconds}" type="number"/>
@@ -68,10 +173,10 @@
             <label>Distance</label>
             <input min="0" placeholder="meters" th:field="*{distanceMeters}" type="number"/>
 
-            <label>stroke rate</label>
+            <label>Stroke rate</label>
             <input min="0" placeholder="spm" th:field="*{strokeRate}" type="number"/>
 
-            <label>notes</label>
+            <label>Notes</label>
             <textarea th:field="*{notes}"></textarea>
 
             <div class="starBox">
@@ -80,17 +185,15 @@
                 <input th:field="*{favorite}" type="checkbox"/>
             </div>
 
-            <!-- Interval section -->
             <div class="intervals" id="intervalsBox">
                 <div class="inline" style="justify-content:space-between;">
                     <strong>Intervals</strong>
                     <button class="smallBtn" onclick="addIntervalRow()" type="button">+</button>
                 </div>
-                <div class="hint">Fill either work distance OR work time. Rest is optional.</div>
+
+                <div class="hint">Fill either work distance or work time. Rest is optional.</div>
 
                 <div id="intervalRows"></div>
-
-                <!-- Hidden template row index -->
                 <input id="intervalCount" type="hidden" value="0"/>
             </div>
 
@@ -101,12 +204,12 @@
     </div>
 
     <div class="right">
-        <!-- empty space in your wireframe; leaving area here for future charts / PR preview -->
+        <!-- Reserved for future charts or preview content. -->
     </div>
 </div>
 
 <script th:inline="javascript">
-    // If we're editing, we may receive intervalData from controller
+    // Existing interval data is provided when editing an interval workout.
     const intervalData = /*[[${intervalData}]]*/ null;
 
     function showIntervals(show) {
@@ -134,9 +237,9 @@
         <label>Work time (min:sec)</label>
         <div class="inline">
           <input class="small" type="number" min="0" name="intervals[${idx}].workMinutes" placeholder="min"
-                 value="${prefill ? Math.floor((prefill.workTimeSeconds||0)/60) : ''}">
+                 value="${prefill ? Math.floor((prefill.workTimeSeconds || 0) / 60) : ''}">
           <input class="small" type="number" min="0" name="intervals[${idx}].workSeconds" placeholder="sec"
-                 value="${prefill ? ((prefill.workTimeSeconds||0)%60) : ''}">
+                 value="${prefill ? ((prefill.workTimeSeconds || 0) % 60) : ''}">
         </div>
       </div>
 
@@ -144,9 +247,9 @@
         <label>Rest (min:sec)</label>
         <div class="inline">
           <input class="small" type="number" min="0" name="intervals[${idx}].restMinutes" placeholder="min"
-                 value="${prefill ? Math.floor((prefill.restTimeSeconds||0)/60) : ''}">
+                 value="${prefill ? Math.floor((prefill.restTimeSeconds || 0) / 60) : ''}">
           <input class="small" type="number" min="0" name="intervals[${idx}].restSeconds" placeholder="sec"
-                 value="${prefill ? ((prefill.restTimeSeconds||0)%60) : ''}">
+                 value="${prefill ? ((prefill.restTimeSeconds || 0) % 60) : ''}">
         </div>
       </div>
 
@@ -156,34 +259,34 @@
     `;
 
         rows.appendChild(row);
-        idx++;
-        countEl.value = idx;
+        countEl.value = ++idx;
     }
 
     function removeRow(idx) {
         const rows = document.getElementById('intervalRows');
         const node = rows.querySelector(`[data-idx="${idx}"]`);
-        if (node) node.remove();
+        if (node) {
+            node.remove();
+        }
     }
 
-    // Toggle logic
     const toggle = document.getElementById('intervalToggle');
+
     toggle.addEventListener('change', () => {
         showIntervals(toggle.checked);
+
         if (toggle.checked && document.getElementById('intervalCount').value === "0") {
             addIntervalRow();
         }
     });
 
-    // On page load: set interval box if checked OR editing with interval data
     window.addEventListener('load', () => {
         showIntervals(toggle.checked);
 
-        // If editing and we have interval data, render rows
         if (intervalData && Array.isArray(intervalData) && intervalData.length > 0) {
             toggle.checked = true;
             showIntervals(true);
-            intervalData.forEach(it => addIntervalRow(it));
+            intervalData.forEach(interval => addIntervalRow(interval));
         } else if (toggle.checked) {
             addIntervalRow();
         }
