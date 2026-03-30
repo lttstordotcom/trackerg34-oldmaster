@@ -209,7 +209,6 @@
 </div>
 
 <script th:inline="javascript">
-    // Existing interval data is provided when editing an interval workout.
     const intervalData = /*[[${intervalData}]]*/ null;
 
     function showIntervals(show) {
@@ -220,7 +219,7 @@
     function addIntervalRow(prefill) {
         const rows = document.getElementById('intervalRows');
         const countEl = document.getElementById('intervalCount');
-        let idx = parseInt(countEl.value, 10);
+        const idx = parseInt(countEl.value, 10);
 
         const row = document.createElement('div');
         row.className = 'intervalRow';
@@ -259,15 +258,48 @@
     `;
 
         rows.appendChild(row);
-        countEl.value = ++idx;
+        countEl.value = idx + 1;
     }
 
     function removeRow(idx) {
         const rows = document.getElementById('intervalRows');
-        const node = rows.querySelector(`[data-idx="${idx}"]`);
+        const node = rows.querySelector(`.intervalRow[data-idx="${idx}"]`);
+
         if (node) {
             node.remove();
+            reindexRows();
         }
+    }
+
+    function reindexRows() {
+        const rows = document.querySelectorAll('#intervalRows .intervalRow');
+        const countEl = document.getElementById('intervalCount');
+
+        rows.forEach((row, newIndex) => {
+            row.dataset.idx = newIndex;
+
+            const inputs = row.querySelectorAll('input');
+            inputs.forEach(input => {
+                if (input.name.includes('.workDistanceMeters')) {
+                    input.name = `intervals[${newIndex}].workDistanceMeters`;
+                } else if (input.name.includes('.workMinutes')) {
+                    input.name = `intervals[${newIndex}].workMinutes`;
+                } else if (input.name.includes('.workSeconds')) {
+                    input.name = `intervals[${newIndex}].workSeconds`;
+                } else if (input.name.includes('.restMinutes')) {
+                    input.name = `intervals[${newIndex}].restMinutes`;
+                } else if (input.name.includes('.restSeconds')) {
+                    input.name = `intervals[${newIndex}].restSeconds`;
+                }
+            });
+
+            const deleteButton = row.querySelector('button.smallBtn');
+            if (deleteButton) {
+                deleteButton.setAttribute('onclick', `removeRow(${newIndex})`);
+            }
+        });
+
+        countEl.value = rows.length;
     }
 
     const toggle = document.getElementById('intervalToggle');
