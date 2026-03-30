@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>TrackErg - PRs</title>
+    <title>TrackErg - Workouts</title>
     <style>
         :root {
             --border: #222;
+            --muted: #666;
+            --bg: #fff;
             --soft: #f5f5f5;
         }
 
         body {
             font-family: Arial, sans-serif;
+            background: var(--bg);
             margin: 0;
         }
 
@@ -23,6 +26,7 @@
 
         .tabs {
             display: flex;
+            gap: 0;
         }
 
         .tab {
@@ -38,7 +42,41 @@
         }
 
         .content {
-            padding: 14px;
+            padding: 12px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1 1 320px;
+        }
+
+        .search input {
+            width: 100%;
+            max-width: 520px;
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+            background: #fff;
         }
 
         table {
@@ -52,10 +90,87 @@
             border: 2px solid var(--border);
             padding: 8px;
             text-align: left;
+            font-size: 14px;
         }
 
         th {
             background: var(--soft);
+        }
+
+        .star-col {
+            font-weight: 1200;
+            text-align: center;
+            color: gold;
+        }
+
+        .btn {
+            border: 2px solid var(--border);
+            padding: 6px 10px;
+            background: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .btn.primary {
+            font-weight: 700;
+        }
+
+        .toggleBtn {
+            width: 36px;
+            min-width: 36px;
+            text-align: center;
+            padding: 6px 0;
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        th.actions-col {
+            display: none;
+        }
+
+        td.actions {
+            border: none;
+        }
+
+        .interval-detail-cell {
+            padding: 0;
+            background: #fafafa;
+        }
+
+        .interval-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .interval-table th,
+        .interval-table td {
+            border: 1px solid var(--border);
+            padding: 6px 8px;
+            font-size: 13px;
+        }
+
+        .interval-table th {
+            background: #f0f0f0;
+        }
+
+        @media (max-width: 720px) {
+            th,
+            td {
+                font-size: 12px;
+            }
+
+            .nowrap {
+                white-space: normal;
+            }
+
+            .interval-table th,
+            .interval-table td {
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -63,44 +178,133 @@
 
 <div class="topbar">
     <div class="tabs">
-        <a class="tab" href="/workouts">View Workouts</a>
+        <a class="tab active" href="/workouts">View Workouts</a>
         <a class="tab" href="/workouts/new">Add Workout</a>
-        <a class="tab active" href="/prs">View PR</a>
+        <a class="tab" href="/prs">View PR</a>
     </div>
 </div>
 
 <div class="content">
-    <h2>Best PRs (by watts)</h2>
+    <div class="row">
+        <form action="/workouts" class="search" method="get">
+            <span aria-hidden="true">🔎</span>
+            <input name="query" placeholder="Search" th:value="${query}" type="text"/>
+            <input name="sort" th:value="${sort}" type="hidden"/>
+            <button class="btn" type="submit">Go</button>
+        </form>
+
+        <div class="controls">
+            <form action="/workouts" method="get">
+                <input name="query" th:value="${query}" type="hidden"/>
+                <label class="nowrap">
+                    Sort by
+                    <select name="sort" onchange="this.form.submit()">
+                        <option th:selected="${sort==''}" value="">—</option>
+                        <option th:selected="${sort=='distance'}" value="distance">Distance</option>
+                        <option th:selected="${sort=='time'}" value="time">Time</option>
+                        <option th:selected="${sort=='split'}" value="split">Split</option>
+                        <option th:selected="${sort=='interval'}" value="interval">Interval</option>
+                        <option th:selected="${sort=='noninterval'}" value="noninterval">Non-Interval</option>
+                        <option th:selected="${sort=='watts'}" value="watts">Watts</option>
+                        <option th:selected="${sort=='oldest'}" value="oldest">Oldest</option>
+                        <option th:selected="${sort=='newest'}" value="newest">Newest</option>
+                    </select>
+                </label>
+            </form>
+
+            <a class="btn primary" href="/workouts/new">Add Workout +</a>
+        </div>
+    </div>
 
     <table>
         <thead>
         <tr>
-            <th>Category</th>
+            <th></th>
             <th>Date</th>
+            <th>Split</th>
             <th>Distance</th>
             <th>Total time</th>
-            <th>Split</th>
             <th>Watts</th>
             <th>Intervals</th>
-            <th>★</th>
             <th>Notes</th>
+            <th class="star-col">★</th>
+            <th class="actions-col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="entry : ${best}">
-            <td th:text="${entry.key}">2k</td>
-            <td th:text="${entry.value.date}"></td>
-            <td th:text="${entry.value.distanceMeters}"></td>
-            <td th:text="${entry.value.timeSeconds > 0 ? (entry.value.timeSeconds/60) + ':' + (#numbers.formatInteger(entry.value.timeSeconds%60,2)) : ''}"></td>
-            <td th:text="${entry.value.formattedSplit}"></td>
-            <td th:text="${entry.value.watts > 0 ? #numbers.formatDecimal(entry.value.watts,0,0) : ''}"></td>
-            <td th:text="${entry.value.interval ? 'Yes' : 'No'}"></td>
-            <td th:text="${entry.value.favorite ? '★' : ''}"></td>
-            <td th:text="${entry.value.notes}"></td>
-        </tr>
+        <th:block th:each="workout : ${workouts}">
+            <tr>
+                <td>
+                    <button th:if="${workout.interval}"
+                            class="btn toggleBtn"
+                            th:id="'toggle-btn-' + ${workout.id}"
+                            th:attr="onclick='toggleIntervals(' + ${workout.id} + ')'"
+                            type="button">
+                        ▼
+                    </button>
+                </td>
+
+                <td th:text="${workout.date}">2026-01-01</td>
+                <td th:text="${workout.formattedSplit}"></td>
+                <td th:text="${workout.distanceMeters > 0 ? workout.distanceMeters : ''}"></td>
+                <td th:text="${workout.timeSeconds > 0 ? (workout.timeSeconds/60) + ':' + (#numbers.formatInteger(workout.timeSeconds%60,2)) : ''}"></td>
+                <td th:text="${workout.watts > 0 ? #numbers.formatDecimal(workout.watts,0,0) : ''}"></td>
+                <td th:text="${workout.interval ? 'Yes' : 'No'}"></td>
+                <td th:text="${workout.notes}"></td>
+                <td class="nowrap star-col" th:text="${workout.favorite ? '★' : ''}"></td>
+                <td class="actions nowrap">
+                    <a class="btn" th:href="@{'/workouts/edit/' + ${workout.id}}">Edit</a>
+                    <a class="btn"
+                       onclick="return confirm('Delete this workout?');"
+                       th:href="@{'/workouts/delete/' + ${workout.id}}">Delete</a>
+                </td>
+            </tr>
+
+            <tr th:if="${workout.interval}"
+                th:id="'interval-row-' + ${workout.id}"
+                style="display:none;">
+                <td class="interval-detail-cell" colspan="10">
+                    <table class="interval-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Work distance</th>
+                            <th>Work time</th>
+                            <th>Rest time</th>
+                            <th>Stroke rate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="interval : ${intervalsByWorkout[workout.id]}">
+                            <td th:text="${interval.index}"></td>
+                            <td th:text="${interval.workDistanceMeters > 0 ? interval.workDistanceMeters : ''}"></td>
+                            <td th:text="${interval.workTimeSeconds > 0 ? (interval.workTimeSeconds/60) + ':' + (#numbers.formatInteger(interval.workTimeSeconds%60,2)) : ''}"></td>
+                            <td th:text="${interval.restTimeSeconds > 0 ? (interval.restTimeSeconds/60) + ':' + (#numbers.formatInteger(interval.restTimeSeconds%60,2)) : ''}"></td>
+                            <td th:text="${interval.strokeRate > 0 ? interval.strokeRate : ''}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </th:block>
         </tbody>
     </table>
 </div>
+
+<script>
+    function toggleIntervals(workoutId) {
+        const detailRow = document.getElementById('interval-row-' + workoutId);
+        const button = document.getElementById('toggle-btn-' + workoutId);
+
+        if (!detailRow || !button) {
+            return;
+        }
+
+        const isHidden = detailRow.style.display === 'none' || detailRow.style.display === '';
+        detailRow.style.display = isHidden ? 'table-row' : 'none';
+        button.textContent = isHidden ? '▲' : '▼';
+    }
+</script>
 
 </body>
 </html>
