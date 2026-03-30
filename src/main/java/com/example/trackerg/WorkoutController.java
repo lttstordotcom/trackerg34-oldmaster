@@ -21,7 +21,6 @@ public class WorkoutController {
         return "redirect:/workouts";
     }
 
-    //View Workouts
     @GetMapping("/workouts")
     public String workouts(
             @RequestParam(value = "query", required = false) String query,
@@ -34,11 +33,9 @@ public class WorkoutController {
         return "workouts";
     }
 
-    //Add Workout
     @GetMapping("/workouts/new")
     public String newWorkout(Model model) {
         WorkoutForm form = new WorkoutForm();
-        // Start with 1 interval row so the UI has something to show when toggled
         model.addAttribute("form", form);
         model.addAttribute("mode", "create");
         return "workout_form";
@@ -50,27 +47,26 @@ public class WorkoutController {
         return "redirect:/workouts";
     }
 
-    //Edit Workout
     @GetMapping("/workouts/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
-        Workout w = service.getWorkout(id);
+        Workout workout = service.getWorkout(id);
         List<Interval> intervalRows = service.getIntervalsForWorkout(id);
 
         WorkoutForm form = new WorkoutForm();
-        form.setId(w.getId());
-        form.setDate(w.getDate());
-        form.setInterval(w.isInterval());
-        form.setFavorite(w.isFavorite());
-        form.setDistanceMeters(w.getDistanceMeters());
-        form.setStrokeRate(w.getStrokeRate());
-        form.setNotes(w.getNotes());
+        form.setId(workout.getId());
+        form.setDate(workout.getDate());
+        form.setInterval(workout.isInterval());
+        form.setFavorite(workout.isFavorite());
+        form.setDistanceMeters(workout.getDistanceMeters());
+        form.setStrokeRate(workout.getStrokeRate());
+        form.setNotes(workout.getNotes());
 
-        // Convert total time into minutes + seconds
-        int total = w.getTimeSeconds();
-        form.setTimeMinutes(total / 60);
-        form.setTimeSeconds(total % 60);
+        // Rebuild total time into minutes and seconds for the form.
+        int totalTime = workout.getTimeSeconds();
+        form.setTimeMinutes(totalTime / 60);
+        form.setTimeSeconds(totalTime % 60);
 
-        // If interval workout show existing interval rows
+        // Pass saved interval rows back to the form when editing.
         model.addAttribute("intervalData", intervalRows);
         model.addAttribute("form", form);
         model.addAttribute("mode", "edit");
@@ -89,7 +85,6 @@ public class WorkoutController {
         return "redirect:/workouts";
     }
 
-    //View PR
     @GetMapping("/prs")
     public String prs(Model model) {
         Map<String, Workout> best = service.bestPRs();
