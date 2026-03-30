@@ -8,16 +8,25 @@ public class Interval {
     private int workDistanceMeters;
     private int workTimeSeconds;
     private int restTimeSeconds;
+    private int strokeRate;
 
     public Interval() {
     }
 
-    public Interval(int workoutId, int index, int workDistanceMeters, int workTimeSeconds, int restTimeSeconds) {
+    public Interval(
+            int workoutId,
+            int index,
+            int workDistanceMeters,
+            int workTimeSeconds,
+            int restTimeSeconds,
+            int strokeRate
+    ) {
         this.workoutId = workoutId;
         this.index = index;
         this.workDistanceMeters = workDistanceMeters;
         this.workTimeSeconds = workTimeSeconds;
         this.restTimeSeconds = restTimeSeconds;
+        this.strokeRate = strokeRate;
     }
 
     public int getWorkoutId() {
@@ -58,5 +67,13 @@ public class Interval {
 
     public void setRestTimeSeconds(int restTimeSeconds) {
         this.restTimeSeconds = restTimeSeconds;
+    }
+
+    public int getStrokeRate() {
+        return strokeRate;
+    }
+
+    public void setStrokeRate(int strokeRate) {
+        this.strokeRate = strokeRate;
     }
 }
