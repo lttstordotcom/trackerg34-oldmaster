@@ -28,7 +28,7 @@ public class WorkoutFileRepository {
             if (!Files.exists(Path.of(INTERVALS_FILE))) {
                 Files.writeString(
                         Path.of(INTERVALS_FILE),
-                        "workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds\n"
+                        "workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds,strokeRate\n"
                 );
             }
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class WorkoutFileRepository {
         List<Workout> workouts = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(WORKOUTS_FILE))) {
-            String line = reader.readLine(); // Skip header
+            String line = reader.readLine();
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",", -1);
@@ -96,7 +96,7 @@ public class WorkoutFileRepository {
         List<Interval> intervals = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(INTERVALS_FILE))) {
-            String line = reader.readLine(); // Skip header
+            String line = reader.readLine();
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",", -1);
@@ -107,6 +107,7 @@ public class WorkoutFileRepository {
                 interval.setWorkDistanceMeters(Integer.parseInt(parts[2]));
                 interval.setWorkTimeSeconds(Integer.parseInt(parts[3]));
                 interval.setRestTimeSeconds(Integer.parseInt(parts[4]));
+                interval.setStrokeRate(parts.length > 5 ? Integer.parseInt(parts[5]) : 0);
 
                 intervals.add(interval);
             }
@@ -121,16 +122,17 @@ public class WorkoutFileRepository {
 
     public void saveIntervals(List<Interval> intervals) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(INTERVALS_FILE))) {
-            writer.println("workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds");
+            writer.println("workoutId,index,workDistanceMeters,workTimeSeconds,restTimeSeconds,strokeRate");
 
             for (Interval interval : intervals) {
                 writer.printf(
-                        "%d,%d,%d,%d,%d%n",
+                        "%d,%d,%d,%d,%d,%d%n",
                         interval.getWorkoutId(),
                         interval.getIndex(),
                         interval.getWorkDistanceMeters(),
                         interval.getWorkTimeSeconds(),
-                        interval.getRestTimeSeconds()
+                        interval.getRestTimeSeconds(),
+                        interval.getStrokeRate()
                 );
             }
         } catch (IOException e) {
@@ -143,7 +145,6 @@ public class WorkoutFileRepository {
             return "";
         }
 
-        // Keep notes safe for CSV storage.
         return value.replace("\n", "\\n").replace(",", ";");
     }
 
