@@ -5,16 +5,58 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>TrackErg - PRs</title>
     <style>
-        :root { --border:#222; --soft:#f5f5f5; }
-        body { font-family: Arial, sans-serif; margin:0; }
-        .topbar { display:flex; align-items:center; border-bottom:2px solid var(--border); }
-        .tabs { display:flex; }
-        .tab { padding:10px 14px; border-right:2px solid var(--border); text-decoration:none; color:#000; }
-        .tab.active { background: var(--soft); font-weight:700; }
-        .content { padding: 14px; }
-        table { width:100%; border-collapse:collapse; margin-top:10px; }
-        th, td { border:2px solid var(--border); padding:8px; text-align:left; }
-        th { background: var(--soft); }
+        :root {
+            --border: #222;
+            --soft: #f5f5f5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            padding: 10px 14px;
+            border-right: 2px solid var(--border);
+            text-decoration: none;
+            color: #000;
+        }
+
+        .tab.active {
+            background: var(--soft);
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 2px solid var(--border);
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--soft);
+        }
     </style>
 </head>
 <body>
@@ -29,6 +71,7 @@
 
 <div class="content">
     <h2>Best PRs (by watts)</h2>
+
     <table>
         <thead>
         <tr>
@@ -58,5 +101,6 @@
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
