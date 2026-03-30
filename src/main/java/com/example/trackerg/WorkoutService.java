@@ -18,7 +18,6 @@ public class WorkoutService {
         this.intervals = repo.loadIntervals();
     }
 
-
     public List<Workout> listWorkouts(String query, String sortKey) {
         List<Workout> filtered = filter(workouts, query);
         sort(filtered, sortKey);
@@ -27,146 +26,164 @@ public class WorkoutService {
 
     public Workout getWorkout(int id) {
         return workouts.stream()
-                .filter(w -> w.getId() == id)
+                .filter(workout -> workout.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Workout not found: " + id));
     }
 
     public List<Interval> getIntervalsForWorkout(int workoutId) {
         return intervals.stream()
-                .filter(i -> i.getWorkoutId() == workoutId)
+                .filter(interval -> interval.getWorkoutId() == workoutId)
                 .sorted(Comparator.comparingInt(Interval::getIndex))
                 .collect(Collectors.toList());
     }
 
     public void deleteWorkout(int id) {
-        workouts.removeIf(w -> w.getId() == id);
-        intervals.removeIf(i -> i.getWorkoutId() == id);
+        workouts.removeIf(workout -> workout.getId() == id);
+        intervals.removeIf(interval -> interval.getWorkoutId() == id);
         persist();
     }
 
     public void createFromForm(WorkoutForm form) {
-        Workout w = new Workout();
-        w.setId(nextId());
-        applyFormToWorkoutAndIntervals(form, w, null);
-        workouts.add(w);
+        Workout workout = new Workout();
+        workout.setId(nextId());
+        applyFormToWorkoutAndIntervals(form, workout);
+        workouts.add(workout);
         persist();
     }
 
     public void updateFromForm(WorkoutForm form) {
-        if (form.getId() == null) throw new IllegalArgumentException("Missing id for update");
-        Workout w = getWorkout(form.getId());
+        if (form.getId() == null) {
+            throw new IllegalArgumentException("Missing id for update");
+        }
 
-        // remove old intervals (if any), then re-add
-        intervals.removeIf(i -> i.getWorkoutId() == w.getId());
+        Workout workout = getWorkout(form.getId());
 
-        applyFormToWorkoutAndIntervals(form, w, w.getId());
+        intervals.removeIf(interval -> interval.getWorkoutId() == workout.getId());
+
+        applyFormToWorkoutAndIntervals(form, workout);
         persist();
     }
 
     public Map<String, Workout> bestPRs() {
-        // PR = best watts per cat(2k, 5k, 6...)
         Map<String, Workout> best = new HashMap<>();
-        for (Workout w : workouts) {
-            String cat = categoryFor(w);
-            best.compute(cat, (k, current) -> (current == null || w.getWatts() > current.getWatts()) ? w : current);
+
+        for (Workout workout : workouts) {
+            String category = categoryFor(workout);
+            best.compute(
+                    category,
+                    (key, current) -> current == null || workout.getWatts() > current.getWatts() ? workout : current
+            );
         }
+
         return best;
     }
 
-    private void applyFormToWorkoutAndIntervals(WorkoutForm form, Workout w, Integer workoutIdForIntervals) {
-        if (form.getDate() == null) form.setDate(LocalDate.now());
+    private void applyFormToWorkoutAndIntervals(WorkoutForm form, Workout workout) {
+        if (form.getDate() == null) {
+            form.setDate(LocalDate.now());
+        }
 
-        w.setDate(form.getDate());
-        w.setInterval(form.isInterval());
-        w.setFavorite(form.isFavorite());
-        w.setStrokeRate(safeInt(form.getStrokeRate()));
-        w.setNotes(form.getNotes() == null ? "" : form.getNotes());
+        workout.setDate(form.getDate());
+        workout.setInterval(form.isInterval());
+        workout.setFavorite(form.isFavorite());
+        workout.setStrokeRate(safeInt(form.getStrokeRate()));
+        workout.setNotes(form.getNotes() == null ? "" : form.getNotes());
 
         if (!form.isInterval()) {
             int totalSeconds = toSeconds(form.getTimeMinutes(), form.getTimeSeconds());
-            int dist = safeInt(form.getDistanceMeters());
+            int distance = safeInt(form.getDistanceMeters());
 
-            w.setTimeSeconds(totalSeconds);
-            w.setDistanceMeters(dist);
+            workout.setTimeSeconds(totalSeconds);
+            workout.setDistanceMeters(distance);
 
-            computeSplitAndWatts(w);
+            computeSplitAndWatts(workout);
+            return;
+        }
 
-        } else {
-            // Interval mode total time = interval work times + rests if provided
-            //total distance if provided
-            int totalTime = 0;
-            int totalDistance = 0;
+        int totalTime = 0;
+        int totalDistance = 0;
 
-            List<IntervalForm> rows = form.getIntervals() == null ? List.of() : form.getIntervals();
-            int idx = 1;
+        List<IntervalForm> rows = form.getIntervals() == null ? List.of() : form.getIntervals();
+        int intervalIndex = 1;
 
-            for (IntervalForm row : rows) {
-                if (row == null) continue;
-
-                int workDist = safeInt(row.getWorkDistanceMeters());
-                int workTime = toSeconds(row.getWorkMinutes(), row.getWorkSeconds());
-                int restTime = toSeconds(row.getRestMinutes(), row.getRestSeconds());
-
-                // skip empty rows
-                if (workDist == 0 && workTime == 0 && restTime == 0) continue;
-
-                totalDistance += Math.max(0, workDist);
-                totalTime += Math.max(0, workTime) + Math.max(0, restTime);
-
-                intervals.add(new Interval(
-                        w.getId(),
-                        idx++,
-                        workDist,
-                        workTime,
-                        restTime
-                ));
+        for (IntervalForm row : rows) {
+            if (row == null) {
+                continue;
             }
 
-            // Allow user to optionally enter a total distance/time in the main fields too;
-            int fallbackTime = toSeconds(form.getTimeMinutes(), form.getTimeSeconds());
-            int fallbackDist = safeInt(form.getDistanceMeters());
+            int workDistance = safeInt(row.getWorkDistanceMeters());
+            int workTime = toSeconds(row.getWorkMinutes(), row.getWorkSeconds());
+            int restTime = toSeconds(row.getRestMinutes(), row.getRestSeconds());
+            int intervalStrokeRate = safeInt(row.getStrokeRate());
 
-            w.setTimeSeconds(totalTime > 0 ? totalTime : fallbackTime);
-            w.setDistanceMeters(totalDistance > 0 ? totalDistance : fallbackDist);
+            if (workDistance == 0 && workTime == 0 && restTime == 0 && intervalStrokeRate == 0) {
+                continue;
+            }
 
-            computeSplitAndWatts(w);
+            totalDistance += Math.max(0, workDistance);
+            totalTime += Math.max(0, workTime) + Math.max(0, restTime);
+
+            intervals.add(new Interval(
+                    workout.getId(),
+                    intervalIndex++,
+                    workDistance,
+                    workTime,
+                    restTime,
+                    intervalStrokeRate
+            ));
         }
+
+        int fallbackTime = toSeconds(form.getTimeMinutes(), form.getTimeSeconds());
+        int fallbackDistance = safeInt(form.getDistanceMeters());
+
+        workout.setTimeSeconds(totalTime > 0 ? totalTime : fallbackTime);
+        workout.setDistanceMeters(totalDistance > 0 ? totalDistance : fallbackDistance);
+
+        computeSplitAndWatts(workout);
     }
 
-    //Filtering & Sorting
-
     private List<Workout> filter(List<Workout> list, String query) {
-        if (query == null || query.trim().isEmpty()) return new ArrayList<>(list);
-        String q = query.trim().toLowerCase();
+        if (query == null || query.trim().isEmpty()) {
+            return new ArrayList<>(list);
+        }
 
-        return list.stream().filter(w -> {
-            String notes = (w.getNotes() == null) ? "" : w.getNotes().toLowerCase();
-            String date = (w.getDate() == null) ? "" : w.getDate().toString();
-            String type = w.isInterval() ? "interval" : "non-interval";
+        String normalizedQuery = query.trim().toLowerCase();
 
-            // allow numeric search for distance or watts
-            boolean numericMatch = false;
-            try {
-                int n = Integer.parseInt(q);
-                numericMatch = (w.getDistanceMeters() == n) || ((int) Math.round(w.getWatts()) == n);
-            } catch (NumberFormatException ignored) {
-            }
+        return list.stream()
+                .filter(workout -> {
+                    String notes = workout.getNotes() == null ? "" : workout.getNotes().toLowerCase();
+                    String date = workout.getDate() == null ? "" : workout.getDate().toString();
+                    String type = workout.isInterval() ? "interval" : "non-interval";
 
-            return notes.contains(q) || date.contains(q) || type.contains(q) || numericMatch;
-        }).collect(Collectors.toList());
+                    boolean numericMatch = false;
+                    try {
+                        int numericQuery = Integer.parseInt(normalizedQuery);
+                        numericMatch =
+                                workout.getDistanceMeters() == numericQuery
+                                        || (int) Math.round(workout.getWatts()) == numericQuery;
+                    } catch (NumberFormatException ignored) {
+                    }
+
+                    return notes.contains(normalizedQuery)
+                            || date.contains(normalizedQuery)
+                            || type.contains(normalizedQuery)
+                            || numericMatch;
+                })
+                .collect(Collectors.toList());
     }
 
     private void sort(List<Workout> list, String sortKey) {
-        if (sortKey == null) sortKey = "";
+        if (sortKey == null) {
+            sortKey = "";
+        }
 
         switch (sortKey) {
             case "distance" -> list.sort(Comparator.comparingInt(Workout::getDistanceMeters).reversed());
-            case "time" ->
-                    list.sort(Comparator.comparingInt(Workout::getTimeSeconds)); // lower time = better, but just consistent
+            case "time" -> list.sort(Comparator.comparingInt(Workout::getTimeSeconds));
             case "split" -> list.sort(Comparator.comparingDouble(Workout::getSplitSeconds));
             case "interval" -> list.sort(Comparator.comparing(Workout::isInterval).reversed());
-            case "noninterval" -> list.sort(Comparator.comparing(Workout::isInterval)); // false first
+            case "noninterval" -> list.sort(Comparator.comparing(Workout::isInterval));
             case "watts" -> list.sort(Comparator.comparingDouble(Workout::getWatts).reversed());
             case "oldest" -> list.sort(Comparator.comparing(Workout::getDate));
             case "newest" -> list.sort(Comparator.comparing(Workout::getDate).reversed());
@@ -174,36 +191,38 @@ public class WorkoutService {
         }
     }
 
-    //Calculations
+    private void computeSplitAndWatts(Workout workout) {
+        int distance = workout.getDistanceMeters();
+        int time = workout.getTimeSeconds();
 
-    private void computeSplitAndWatts(Workout w) {
-        int dist = w.getDistanceMeters();
-        int time = w.getTimeSeconds();
+        if (distance > 0 && time > 0) {
+            double split = ((double) time / distance) * 500.0;
+            workout.setSplitSeconds(split);
 
-        if (dist > 0 && time > 0) {
-            double split = ((double) time / dist) * 500.0; // sec per 500m
-            w.setSplitSeconds(split);
-
-            // Concept2: watts = 2.8 / (pace/500)^3 where pace = splitSeconds
             double ratio = split / 500.0;
             double watts = 2.8 / Math.pow(ratio, 3);
-            w.setWatts(watts);
+            workout.setWatts(watts);
         } else {
-            w.setSplitSeconds(0);
-            w.setWatts(0);
+            workout.setSplitSeconds(0);
+            workout.setWatts(0);
         }
     }
 
-    private String categoryFor(Workout w) {
-        // PR page categories
-        if (w.getDistanceMeters() % 1000 == 0) return w.getDistanceMeters()/1000 +"k";
-        if (w.isInterval()) return "Intervals";
+    private String categoryFor(Workout workout) {
+        if (workout.getDistanceMeters() % 1000 == 0) {
+            return workout.getDistanceMeters() / 1000 + "k";
+        }
+        if (workout.isInterval()) {
+            return "Intervals";
+        }
         return "Fastest Split";
     }
 
-    //Error catching stuff 12/28
     private int nextId() {
-        return workouts.stream().mapToInt(Workout::getId).max().orElse(0) + 1;
+        return workouts.stream()
+                .mapToInt(Workout::getId)
+                .max()
+                .orElse(0) + 1;
     }
 
     private void persist() {
@@ -211,17 +230,19 @@ public class WorkoutService {
         repo.saveIntervals(intervals);
     }
 
-    private int safeInt(Integer v) {
-        return v == null ? 0 : Math.max(0, v);
+    private int safeInt(Integer value) {
+        return value == null ? 0 : Math.max(0, value);
     }
 
     private int toSeconds(Integer minutes, Integer seconds) {
-        int m = (minutes == null ? 0 : Math.max(0, minutes));
-        int s = (seconds == null ? 0 : Math.max(0, seconds));
-        if (s >= 60) {
-            m += s / 60;
-            s = s % 60;
+        int safeMinutes = minutes == null ? 0 : Math.max(0, minutes);
+        int safeSeconds = seconds == null ? 0 : Math.max(0, seconds);
+
+        if (safeSeconds >= 60) {
+            safeMinutes += safeSeconds / 60;
+            safeSeconds = safeSeconds % 60;
         }
-        return m * 60 + s;
+
+        return safeMinutes * 60 + safeSeconds;
     }
 }
