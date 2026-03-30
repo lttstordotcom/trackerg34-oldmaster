@@ -20,18 +20,28 @@ public class WorkoutController {
     public String home() {
         return "redirect:/workouts";
     }
+	@GetMapping("/workouts")
+	public String workouts(
+    		@RequestParam(value = "query", required = false) String query,
+        	@RequestParam(value = "sort", required = false) String sort,
+        	Model model
+	) {
+    List<Workout> workoutList = service.listWorkouts(query, sort);
 
-    @GetMapping("/workouts")
-    public String workouts(
-            @RequestParam(value = "query", required = false) String query,
-            @RequestParam(value = "sort", required = false) String sort,
-            Model model
-    ) {
-        model.addAttribute("workouts", service.listWorkouts(query, sort));
-        model.addAttribute("query", query == null ? "" : query);
-        model.addAttribute("sort", sort == null ? "" : sort);
-        return "workouts";
+    Map<Integer, List<Interval>> intervalsByWorkout = new HashMap<>();
+    for (Workout workout : workoutList) {
+        if (workout.isInterval()) {
+            intervalsByWorkout.put(workout.getId(), service.getIntervalsForWorkout(workout.getId()));
+        }
     }
+
+    	model.addAttribute("workouts", workoutList);
+    	model.addAttribute("intervalsByWorkout", intervalsByWorkout);
+    	model.addAttribute("query", query == null ? "" : query);
+    	model.addAttribute("sort", sort == null ? "" : sort);
+
+    	return "workouts";
+	}
 
     @GetMapping("/workouts/new")
     public String newWorkout(Model model) {
